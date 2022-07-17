@@ -1,11 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import '../../assets/css/main.css';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Button, makeStyles } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
 import CheckIcon from '@material-ui/icons/Check';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SearchIcon from '@material-ui/icons/Search';
 import classNames from 'classnames';
+import '../../assets/css/main.css';
 Search.propTypes = {};
 const useStyles = makeStyles((theme) => ({
   icon: {

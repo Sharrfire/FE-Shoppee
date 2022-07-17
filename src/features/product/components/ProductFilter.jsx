@@ -6,6 +6,9 @@ const useStyle = makeStyles((theme) => ({
     fontSize: '18px',
     marginRight: '8px',
   },
+  input: {
+    // border: '1px solid black',
+  },
 }));
 function ProductFilter(props) {
   const classes = useStyle();

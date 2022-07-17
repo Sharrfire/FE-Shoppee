@@ -1,20 +1,29 @@
-import React from 'react';
-// import PropTypes from 'prop-types';
-import '../../assets/css/main.css';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  IconButton,
+  makeStyles,
+  useMediaQuery,
+  useTheme,
+} from '@material-ui/core';
+import { Close } from '@material-ui/icons';
 import FacebookIcon from '@material-ui/icons/Facebook';
+import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
-import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
-import { makeStyles } from '@material-ui/core';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import classNames from 'classnames';
-import qrCode from '../../assets/images/qrcode.png';
+import React from 'react';
+import '../../assets/css/main.css';
 import appStore from '../../assets/images/appStore.png';
 import googleplay from '../../assets/images/googlePlay.png';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import Search from '../search/Search';
+import qrCode from '../../assets/images/qrcode.png';
+import Register from '../../features/auth/register/Register';
 import Cart from '../cart/Cart';
-// import no_cart from '../../assets/images/no_cart.png';
-// import InputField from '../../components/form-control/InputField';
+import Search from '../search/Search';
+
 Header.propTypes = {};
 const useStyle = makeStyles((theme) => ({
   icon__link: {
@@ -41,16 +50,41 @@ const useStyle = makeStyles((theme) => ({
     fontSize: '2.4rem',
     margin: '6px',
   },
+
+  closeButton: {
+    position: 'absolute',
+    top: theme.spacing(1),
+    right: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
 }));
 function Header(props) {
   const classes = useStyle();
+
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    setOpen(false);
+    if (reason !== 'backdropClick') {
+      setOpen(false);
+    }
+    if (reason !== 'escapeKeyDown') {
+      setOpen(false);
+    }
+  };
   return (
     <div className='header'>
       <div className='grid'>
         <nav className='header__navbar'>
           <ul className='header__navbar-list'>
             <li className='header__navbar-item header__navbar-item--strong header__navbar-item--sperate '>
-              Kênh Người Bán
+              Kênh Người Nán
             </li>
             <li className='header__navbar-item header__navbar-item--strong header__navbar-item--sperate'>
               Trở Thành Người bán Shopee
@@ -92,53 +126,60 @@ function Header(props) {
                 Hỗ trợ
               </a>
             </li>
+
             {/* chua dang nhap */}
-            {/* <li className="header__navbar-item header__navbar-item--strong header__navbar-item--sperate">
+
+            <li
+              className='header__navbar-item header__navbar-item--strong header__navbar-item--sperate'
+              onClick={handleClickOpen}
+            >
               Đăng ký
             </li>
-            <li className="header__navbar-item header__navbar-item--strong">Đăng nhập</li> */}
+            <li className='header__navbar-item header__navbar-item--strong'>Đăng nhập</li>
+
             {/* da dang nhap */}
-            <li className='header__navbar-item header__navbar-user'>
-              <div className='header__navbar-user-avatar'>
-                <div className='header__navbar-user-img'>
+
+            {/* <li className="header__navbar-item header__navbar-user">
+              <div className="header__navbar-user-avatar">
+                <div className="header__navbar-user-img">
                   <svg
-                    enableBackground='new 0 0 15 15'
-                    viewBox='0 0 15 15'
-                    x='0'
-                    y='0'
-                    className='header__navbar-user-img--icon'
+                    enable-background="new 0 0 15 15"
+                    viewBox="0 0 15 15"
+                    x="0"
+                    y="0"
+                    class="header__navbar-user-img--icon"
                   >
                     <g>
                       <circle
-                        cx='7.5'
-                        cy='4.5'
-                        fill='none'
-                        r='3.8'
-                        // stroke-miterlimit='10'
+                        cx="7.5"
+                        cy="4.5"
+                        fill="none"
+                        r="3.8"
+                        stroke-miterlimit="10"
                       ></circle>
                       <path
-                        d='m1.5 14.2c0-3.3 2.7-6 6-6s6 2.7 6 6'
-                        fill='none'
-                        // stroke-linecap='round'
-                        // stroke-miterlimit='10'
+                        d="m1.5 14.2c0-3.3 2.7-6 6-6s6 2.7 6 6"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-miterlimit="10"
                       ></path>
                     </g>
                   </svg>
                 </div>
               </div>
-              <span className='header__navbar-user-name'>Dinh Ngoc Thai</span>
-              <ul className='header__navbar-user-menu'>
-                <li className='header__navbar-user-item'>
-                  <a href='/'>Tài Khoảng của tôi</a>
+              <span className="header__navbar-user-name">DaoTriThien</span>
+              <ul className="header__navbar-user-menu">
+                <li className="header__navbar-user-item">
+                  <a href="">Tài Khoảng của tôi</a>
                 </li>
-                <li className='header__navbar-user-item'>
-                  <a href='/'>Đơn mua</a>
+                <li className="header__navbar-user-item">
+                  <a href="">Đơn mua</a>
                 </li>
-                <li className='header__navbar-user-item'>
-                  <a href='/'>Đăng xuất</a>
+                <li className="header__navbar-user-item">
+                  <a href="">Đăng xuất</a>
                 </li>
               </ul>
-            </li>
+            </li> */}
           </ul>
         </nav>
         {/* header-with-searh */}
@@ -169,6 +210,21 @@ function Header(props) {
           </div>
         </div>
       </div>
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        // disableBackdropClick={true}
+        // disableEscapeKeyDown={true}
+        aria-labelledby='responsive-dialog-title'
+      >
+        <IconButton onClick={handleClose} className={classes.closeButton}>
+          <Close />
+        </IconButton>
+        <DialogContent>
+          <Register />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

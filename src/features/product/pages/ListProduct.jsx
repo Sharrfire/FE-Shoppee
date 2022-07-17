@@ -1,7 +1,6 @@
 import { createTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
-// import '../../../assets/css/product.css';
-import '~/assets/css/product.css';
+import '../../../assets/css/product.css';
 import ProductFilter from '../components/ProductFilter';
 import ProductList from '../components/ProductList';
 import ProductSort from '../components/ProductSort';
@@ -23,6 +22,13 @@ const theme = createTheme({
         '&:hover': {
           backgroundColor: 'transparent',
         },
+        '&.Mui-selected': {
+          backgroundColor: '#ee4d2d',
+          color: '#fff',
+        },
+        '&.Mui-focusVisible': {
+          backgroundColor: '#ee4d2d',
+        },
       },
       rounded: {
         borderRadius: '2px',
@@ -37,11 +43,6 @@ const theme = createTheme({
         marginRight: '15px',
         width: '30px',
         height: '30px',
-      },
-    },
-    Mui: {
-      '&$selected': {
-        backgroundColor: 'red',
       },
     },
   },
