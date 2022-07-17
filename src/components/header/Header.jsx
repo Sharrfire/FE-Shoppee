@@ -1,13 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import '../../assets/css/reset.css';
+// import PropTypes from 'prop-types';
 import '../../assets/css/main.css';
-import '../../assets/css/base.css';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
 import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
-import { Badge, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import classNames from 'classnames';
 import qrCode from '../../assets/images/qrcode.png';
 import appStore from '../../assets/images/appStore.png';
@@ -15,8 +13,8 @@ import googleplay from '../../assets/images/googlePlay.png';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Search from '../search/Search';
 import Cart from '../cart/Cart';
-import no_cart from '../../assets/images/no_cart.png';
-import InputField from '../../components/form-control/InputField';
+// import no_cart from '../../assets/images/no_cart.png';
+// import InputField from '../../components/form-control/InputField';
 Header.propTypes = {};
 const useStyle = makeStyles((theme) => ({
   icon__link: {
@@ -62,10 +60,10 @@ function Header(props) {
               <div className='header__qr'>
                 <img src={qrCode} alt='QR Code' className='header__qr-img' />
                 <div className='header__qr-apps'>
-                  <a href='' className='header__qr-link'>
+                  <a href='/' className='header__qr-link'>
                     <img src={googleplay} alt='Google Play' className='header__qr-download-img' />
                   </a>
-                  <a href='' className='header__qr-link'>
+                  <a href='/' className='header__qr-link'>
                     <img src={appStore} alt='App Store' className='header__qr-download-img' />
                   </a>
                 </div>
@@ -73,23 +71,23 @@ function Header(props) {
             </li>
             <li className='header__navbar-item header__navbar-item--strong'>
               <span className='header__navbar-title--no-pointer'>kết nối</span>
-              <a href='' className='header__navbar-icon-link'>
+              <a href='/' className='header__navbar-icon-link'>
                 <FacebookIcon className={classes.icon__link} />
               </a>
-              <a href='' className='header__navbar-icon-link'>
+              <a href='/' className='header__navbar-icon-link'>
                 <InstagramIcon className={classes.icon__link} />
               </a>
             </li>
           </ul>
           <ul className='header__navbar-list'>
             <li className={(classes.item_link, classNames('header__navbar-item'))}>
-              <a href='' className='header__navbar-item-link'>
+              <a href='/' className='header__navbar-item-link'>
                 <NotificationsNoneOutlinedIcon className={classes.icon__link} />
                 Thông báo
               </a>
             </li>
             <li className={(classes.item_link, classNames('header__navbar-item'))}>
-              <a href='' className='header__navbar-item-link'>
+              <a href='/' className='header__navbar-item-link'>
                 <HelpOutlineOutlinedIcon className={classes.icon__link} />
                 Hỗ trợ
               </a>
@@ -131,13 +129,13 @@ function Header(props) {
               <span className='header__navbar-user-name'>Dinh Ngoc Thai</span>
               <ul className='header__navbar-user-menu'>
                 <li className='header__navbar-user-item'>
-                  <a href=''>Tài Khoảng của tôi</a>
+                  <a href='/'>Tài Khoảng của tôi</a>
                 </li>
                 <li className='header__navbar-user-item'>
-                  <a href=''>Đơn mua</a>
+                  <a href='/'>Đơn mua</a>
                 </li>
                 <li className='header__navbar-user-item'>
-                  <a href=''>Đăng xuất</a>
+                  <a href='/'>Đăng xuất</a>
                 </li>
               </ul>
             </li>

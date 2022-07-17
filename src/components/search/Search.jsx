@@ -53,10 +53,10 @@ function Search(props) {
           <h3 className='header__search-history-title'>Lịch sử tìm kiếm</h3>
           <ul className='header__search-history-list'>
             <li className='header__search-history-item'>
-              <a href=''>Dầu gội đầu</a>
+              <a href='/'>Dầu gội đầu</a>
             </li>
             <li className='header__search-history-item'>
-              <a href=''>Dầu gội đầu</a>
+              <a href='/'>Dầu gội đầu</a>
             </li>
           </ul>
         </div>
@@ -68,7 +68,8 @@ function Search(props) {
         <ul className='header__search-option'>
           <li className='header__search-option-item header__search-option-item-active'>
             <span>Trong Shop</span>
-            <CheckIcon className={classes.check_icon + classes.checked} />
+            {/* <CheckIcon className={classes.check_icon + classes.checked} /> */}
+            <CheckIcon className={(classes.check_icon, classNames('checked'))} />
           </li>
           <li className='header__search-option-item'>
             <span>Ngoài Shop</span>

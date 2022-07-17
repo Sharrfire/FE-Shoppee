@@ -1,16 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { Outlet } from 'react-router-dom';
 
-index.propTypes = {
+ProductFeature.propTypes = {};
 
-};
-
-function index(props) {
-    return (
-        <div>
-            
-        </div>
-    );
+function ProductFeature(props) {
+  return (
+    <div>
+      <Outlet />
+    </div>
+  );
 }
 
-export default index;
+export default ProductFeature;
