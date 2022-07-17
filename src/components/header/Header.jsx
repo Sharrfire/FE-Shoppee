@@ -1,29 +1,24 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  IconButton,
-  makeStyles,
-  useMediaQuery,
-  useTheme,
-} from '@material-ui/core';
+import classNames from 'classnames';
+import { useState } from 'react';
+
+// MUI
+import { Dialog, DialogContent, IconButton, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import classNames from 'classnames';
-import React from 'react';
+
+// Local File
 import '../../assets/css/main.css';
 import appStore from '../../assets/images/appStore.png';
 import googleplay from '../../assets/images/googlePlay.png';
 import qrCode from '../../assets/images/qrcode.png';
+import Login from '../../features/auth/login/Login';
 import Register from '../../features/auth/register/Register';
 import Cart from '../cart/Cart';
 import Search from '../search/Search';
-
 Header.propTypes = {};
 const useStyle = makeStyles((theme) => ({
   icon__link: {
@@ -61,23 +56,39 @@ const useStyle = makeStyles((theme) => ({
 function Header(props) {
   const classes = useStyle();
 
-  const [open, setOpen] = React.useState(false);
+  const [openSignUp, setOpenSignUp] = useState(false);
+  const [openLogIn, setOpenLogIn] = useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickOpenSignUp = () => {
+    setOpenSignUp(true);
   };
 
-  const handleClose = (event, reason) => {
-    setOpen(false);
+  const handleClickOpenLogIn = () => {
+    setOpenLogIn(true);
+  };
+
+  const handleCloseSignUp = (event, reason) => {
+    setOpenSignUp(false);
     if (reason !== 'backdropClick') {
-      setOpen(false);
+      setOpenSignUp(false);
     }
     if (reason !== 'escapeKeyDown') {
-      setOpen(false);
+      setOpenSignUp(false);
     }
   };
+
+  const handleCloseLogIn = (event, reason) => {
+    setOpenLogIn(false);
+    if (reason !== 'backdropClick') {
+      setOpenLogIn(false);
+    }
+    if (reason !== 'escapeKeyDown') {
+      setOpenLogIn(false);
+    }
+  };
+
   return (
     <div className='header'>
       <div className='grid'>
@@ -131,11 +142,13 @@ function Header(props) {
 
             <li
               className='header__navbar-item header__navbar-item--strong header__navbar-item--sperate'
-              onClick={handleClickOpen}
+              onClick={handleClickOpenSignUp}
             >
               Đăng ký
             </li>
-            <li className='header__navbar-item header__navbar-item--strong'>Đăng nhập</li>
+            <li className='header__navbar-item header__navbar-item--strong' onClick={handleClickOpenLogIn}>
+              Đăng nhập
+            </li>
 
             {/* da dang nhap */}
 
@@ -210,21 +223,37 @@ function Header(props) {
           </div>
         </div>
       </div>
+      {/* form đăng ký */}
       <Dialog
         fullScreen={fullScreen}
-        open={open}
-        onClose={handleClose}
-        // disableBackdropClick={true}
-        // disableEscapeKeyDown={true}
+        open={openSignUp}
+        onClose={handleCloseSignUp}
         aria-labelledby='responsive-dialog-title'
       >
-        <IconButton onClick={handleClose} className={classes.closeButton}>
+        <IconButton onClick={handleCloseSignUp} className={classes.closeButton}>
           <Close />
         </IconButton>
         <DialogContent>
           <Register />
         </DialogContent>
       </Dialog>
+      {/* end form đăng ký */}
+
+      {/* form đăng nhập */}
+      <Dialog
+        fullScreen={fullScreen}
+        open={openLogIn}
+        onClose={handleCloseLogIn}
+        aria-labelledby='responsive-dialog-title'
+      >
+        <IconButton onClick={handleCloseLogIn} className={classes.closeButton}>
+          <Close />
+        </IconButton>
+        <DialogContent>
+          <Login />
+        </DialogContent>
+      </Dialog>
+      {/* end form đăng nhập */}
     </div>
   );
 }

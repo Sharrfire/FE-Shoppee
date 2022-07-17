@@ -15,6 +15,7 @@ function App() {
       <Routes path='/*' element={<ProductFeature />}>
         <Route path='' element={<ListProduct />} />
         <Route path={`:productId`} element={<ProductDetail />} />
+        {/* <Route path='1' element={<ProductDetail />} /> */}
       </Routes>
     </div>
   );

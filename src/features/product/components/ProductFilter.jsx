@@ -10,6 +10,7 @@ const useStyle = makeStyles((theme) => ({
     // border: '1px solid black',
   },
 }));
+
 function ProductFilter(props) {
   const classes = useStyle();
   return (

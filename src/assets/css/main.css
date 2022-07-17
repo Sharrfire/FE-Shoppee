@@ -260,11 +260,12 @@
     position: relative;
     display: inline-block;
     padding: 0px 8px;
-    cursor: pointer;
+    cursor: pointer;   
 }
 
 .header__cart-wrap:hover .header__cart-list{
     display: block;
+    z-index: 2;
 }
 
 .header__cart-list {

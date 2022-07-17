@@ -51,6 +51,7 @@ function ProductSort(props) {
           <ul className='select-input__list'>
             <li className='select-input__item'>Giá: Thấp đến cao</li>
             <li className='select-input__item'>Giá: Cao đến thấp</li>
+            <li className='select-input__item'>Giá: Giữa đến giữa</li>
           </ul>
         </div>
       </div>
