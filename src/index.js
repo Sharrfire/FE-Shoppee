@@ -1,28 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from '~/App';
-import reportWebVitals from './reportWebVitals';
-import GlobalStyles from './components/GlobalStyles';
-import { SnackbarProvider } from 'notistack';
-import { Provider } from 'react-redux';
-import store from './app/store';
-import { BrowserRouter as Router } from 'react-router-dom';
+import ReactDOM from 'react-dom';
+import App from './App';
 import './index.css';
+import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+// import store from './app/store';
+// import { SnackbarProvider } from 'notistack';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  // <React.StrictMode>
-  // </React.StrictMode>
-
-  <Provider store={store}>
-    <Router>
-      <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
-        <GlobalStyles>
-          <App />
-        </GlobalStyles>{' '}
-      </SnackbarProvider>
-    </Router>
-  </Provider>
+ReactDOM.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      {/* <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'center' }}> */}
+      <App />
+      {/* </SnackbarProvider> */}
+    </BrowserRouter>
+  </React.StrictMode>,
+  document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function
