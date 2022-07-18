@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Input } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import { Controller } from 'react-hook-form';
 
 InputField.propTypes = {
@@ -11,24 +11,21 @@ InputField.propTypes = {
 };
 
 function InputField(props) {
-  const { form, name, label, disabled, placeholder } = props;
+  const { form, name, label, disabled } = props;
   const { errors } = form;
   const hasError = errors[name];
   return (
     <Controller
       name={name}
       control={form.control}
-      as={Input}
-      margin="normal"
-      disableUnderline
+      as={TextField}
+      margin='normal'
+      variant='outlined'
       fullWidth
-      placeholder={placeholder}
       label={label}
       disabled={disabled}
       error={!!hasError}
-      // helperText={errors[name]?.message}
-      // style={{ border: '1px solid black' }}
-      className="input-field"
+      helperText={errors[name]?.message}
     />
   );
 }

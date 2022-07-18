@@ -17,6 +17,12 @@ const useStyles = makeStyles((theme) => ({
     color: '#222',
     padding: '15px 0px',
   },
+
+  link: {
+    textDecoration: 'none',
+    color: 'rgb(0, 85, 170)',
+    marginTop: '10px',
+  },
   submit: {
     margin: theme.spacing(2, 0, 1, 0),
     color: '#fff',
@@ -24,13 +30,8 @@ const useStyles = makeStyles((theme) => ({
     padding: '0px 10px',
     height: '40px',
     marginTop: '20px',
+    margin: theme.spacing(2, 0, 1, 0),
   },
-  link: {
-    textDecoration: 'none',
-    color: 'rgb(0, 85, 170)',
-    marginTop: '10px',
-  },
-
   closeButton: {
     position: 'absolute',
     top: theme.spacing(1),
@@ -60,13 +61,11 @@ function LoginForm(props) {
   const classes = useStyles();
   const schema = yup.object().shape({
     email: yup.string().required('please enter your email').email('please enter a valid email address'),
-    password: yup
-      .string()
-      .required('please enter your password')
-      .matches(
-        '(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}',
-        'Password must contain at least 8 characters, including upper case letters, lower case letters, numbers and a special character'
-      ),
+    password: yup.string().required('please enter your password'),
+    // .matches(
+    //   '(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}',
+    //   'Password must contain at least 8 characters, including upper case letters, lower case letters, numbers and a special character'
+    // ),
   });
   const form = useForm({
     defaultValues: {

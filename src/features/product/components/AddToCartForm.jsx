@@ -1,7 +1,7 @@
 AddToCartForm.propTypes = {};
 
 function AddToCartForm(props) {
-  return <div></div>;
+  return <div>This is cart form</div>;
 }
 
 export default AddToCartForm;
