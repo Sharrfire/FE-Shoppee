@@ -11,9 +11,12 @@ function Product({ product }) {
   const { name, price, quantitySold, rate, sale, salePrice, images } = product;
   const img = images[0].path;
   const history = useNavigate();
+  const handleClick = () => {
+    history(`/products/${product.id}`);
+  };
 
   return (
-    <div className='product__items'>
+    <div className='product__items' onClick={handleClick}>
       <div className='product__item'>
         {/* img */}
         <div className='product__item-img'>
