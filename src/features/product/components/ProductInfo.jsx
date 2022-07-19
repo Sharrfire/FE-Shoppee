@@ -1,8 +1,14 @@
-import { makeStyles } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { Button, makeStyles } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddToCartForm from './AddToCartForm';
-ProductInfo.propTypes = {};
+import { addToCart } from './shoppingCart/CartSlice';
+import { useDispatch } from 'react-redux';
+ProductInfo.propTypes = {
+  product: PropTypes.object,
+};
 
 const useStyle = makeStyles((theme) => ({
   rating: {
@@ -17,35 +23,62 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-function ProductInfo(props) {
+function ProductInfo({ product = {} }) {
   const classes = useStyle();
+  const dispatch = useDispatch();
+  const { name, salePrice, price, quantitySold, rate, colors } = product;
+  const [product1, setProduct1] = useState(product);
+  const handleAddtoCart = (data) => {
+    const newProduct = { ...product1 };
+    const res = colors.filter((colors) => colors.id === data.idc);
+    newProduct.colors = res;
+    console.log(newProduct);
+    const action = addToCart({
+      idp: product.id,
+      idc: data.idc,
+      newProduct,
+      quantity: data.quantity,
+    });
+    dispatch(action);
+  };
+
   return (
     <div className='product__info'>
       <div className='product__info-app'>
         <div className='product__name'>
           <div className='product__name-favorite'>Yêu thích</div>
-          <span>GĂNG TAY CAO SU SIÊU DAI HÌNH HƯƠU HẠC</span>
+          <span>{name}</span>
         </div>
         <div className='product__review'>
           <div className='product__review-rated'>
-            <div className='product__review-number'>4.9</div>
-            <Rating name='half-rating-read' value={5} precision={0.1} readOnly className={classes.rating} />
+            <div className='product__review-number'>1.2</div>
+            <Rating name='half-rating-read' value={rate} precision={0.1} readOnly className={classes.rating} />
           </div>
           <div className='product__review-reviewed'>
             <div className='product__review-reviewed-number'>1,7k</div>
             <div className='product__review-reviewed-label'>Đánh giá</div>
           </div>
           <div className='product__review-sold'>
-            <div className='product__review-sold-number'>8.1k</div>
+            <div className='product__review-sold-number'>{quantitySold}</div>
             <div className='product__review-sold-label'>Đã bán</div>
           </div>
         </div>
         <div className='product__prices'>
           <div className='product__prices-flex'>
-            <div className='product__prices-originalPrices'>₫25.000</div>
+            <div className='product__prices-originalPrices'>
+              {new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND',
+              }).format(price)}
+            </div>
             <div className='product__prices-center'>
-              <div className='product__prices-salePrices'>9.000</div>
-              <div className='product__prices-promotion'>64% giảm</div>
+              <div className='product__prices-salePrices'>
+                {new Intl.NumberFormat('vi-VN', {
+                  style: 'currency',
+                  currency: 'VND',
+                }).format(salePrice)}
+              </div>
+              <div className='product__prices-promotion'>{rate}% giảm</div>
             </div>
           </div>
         </div>
@@ -142,11 +175,19 @@ function ProductInfo(props) {
             </div>
           </div>
         </div>
-        <div className='product__action'>
-          <AddToCartForm />
-        </div>
+        {/* <div className='product__action'>
+          <AddToCartForm colors={colors} onSubmit={handleAddtoCart} />
+        </div> */}
         <div className='product__more'>
-          <a href='/'>More</a>
+          <a href='' className='product__more-1'>
+            <img
+              src='https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/67454c89080444c5997b53109072c9e0.png'
+              alt=''
+              className='img'
+            />
+            <span className='more1'>Shopee Đảm Bảo</span>
+            <span className='more2'>3 Ngày Trả Hàng / Hoàn Tiền</span>
+          </a>
         </div>
       </div>
     </div>

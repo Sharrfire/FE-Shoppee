@@ -4,16 +4,21 @@ import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './app/store';
 // import { Provider } from 'react-redux';
 // import store from './app/store';
 // import { SnackbarProvider } from 'notistack';
 
 ReactDOM.render(
-  <BrowserRouter>
-    {/* <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'center' }}> */}
-    <App />
-    {/* </SnackbarProvider> */}
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      {/* <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'center' }}> */}
+      <App />
+      {/* </SnackbarProvider> */}
+    </BrowserRouter>
+  </Provider>,
+
   // <React.StrictMode>
 
   // </React.StrictMode>,

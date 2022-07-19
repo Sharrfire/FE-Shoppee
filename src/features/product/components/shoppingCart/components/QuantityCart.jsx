@@ -1,16 +1,26 @@
-import { Box, FormControl, FormHelperText, IconButton, makeStyles, OutlinedInput, Typography } from '@material-ui/core';
+import {
+  Box,
+  FormControl,
+  FormHelperText,
+  IconButton,
+  makeStyles,
+  OutlinedInput,
+  Typography,
+} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { Controller } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { setQuantity } from '../CartSlice';
 
-QuantityField.propTypes = {
+QuantityCart.propTypes = {
   form: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
   disabled: PropTypes.bool,
 };
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -36,15 +46,15 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '12px',
   },
 }));
-
-function QuantityField(props) {
+function QuantityCart(props) {
   const classes = useStyles();
-  const { form, name, label, disabled } = props;
+  const dispatch = useDispatch();
+  const { form, id1, id2, name, label, disabled } = props;
   const { errors, setValue } = form;
   const hasError = !!errors[name];
   return (
-    <div className='quantity__control'>
-      <FormControl error={hasError} fullWidth margin='normal' variant='outlined' size='small'>
+    <div className="quantity__control">
+      <FormControl error={hasError} fullWidth margin="normal" variant="outlined" size="small">
         <Typography>{label}</Typography>
         <Controller
           name={name}
@@ -54,24 +64,50 @@ function QuantityField(props) {
               <IconButton className={classes.btn}>
                 <RemoveIcon
                   className={classes.icon}
-                  onClick={() => setValue(name, Number.parseInt(value) ? Number.parseInt(value) - 1 : 1)}
+                  onClick={() => {
+                    setValue(name, Number.parseInt(value) ? Number.parseInt(value) - 1 : 1);
+                    dispatch(
+                      setQuantity({
+                        id1,
+                        id2,
+                        quantity: value ? value - 1 : 1,
+                      }),
+                    );
+                  }}
                 />
               </IconButton>
 
               <OutlinedInput
                 className={classes.input}
                 id={name}
-                type='number'
+                type="number"
                 disabled={disabled}
                 value={value}
                 onChange={onChange}
-                onBlur={onBlur}
+                onBlur={() => {
+                  dispatch(
+                    setQuantity({
+                      id1,
+                      id2,
+                      quantity: value,
+                    }),
+                  );
+                }}
               />
 
               <IconButton className={classes.btn}>
                 <AddIcon
                   className={classes.icon}
-                  onClick={() => setValue(name, Number.parseInt(value) ? Number.parseInt(value) + 1 : 1)}
+                  onClick={() => {
+                    setValue(name, Number.parseInt(value) ? Number.parseInt(value) + 1 : 1);
+                    dispatch(
+                      setQuantity({
+                        id1,
+                        id2,
+                        quantity: value ? value + 1 : 1,
+                      }),
+                    );
+                  }}
                 />
               </IconButton>
             </Box>
@@ -83,4 +119,4 @@ function QuantityField(props) {
   );
 }
 
-export default QuantityField;
+export default QuantityCart;

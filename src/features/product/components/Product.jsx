@@ -1,14 +1,23 @@
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import Rating from '@material-ui/lab/Rating';
-Product.propTypes = {};
+import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
-function Product(props) {
+Product.propTypes = {
+  product: PropTypes.object,
+};
+
+function Product({ product }) {
+  const { name, price, quantitySold, rate, sale, salePrice, images } = product;
+  const img = images[0].path;
+  const history = useNavigate();
+
   return (
     <div className='product__items'>
       <div className='product__item'>
         {/* img */}
         <div className='product__item-img'>
-          <img src='https://cf.shopee.vn/file/997cbd88b1f8db3482269bd3da8df20a_tn' alt='' className='product__img' />
+          <img src={img} alt={product.name} className='product__img' />
           <div className='product__satus'>
             <div className='product__status-favorite'>
               <span className='favorite'>Yêu thích</span>
@@ -17,7 +26,7 @@ function Product(props) {
           <div className='product__badge'>
             <div className='product__badge-promotion'>
               <div className='product__badege-promotion-content'>
-                <span className='product__badge-promotion-sale'>28%</span>
+                <span className='product__badge-promotion-sale'>{sale}%</span>{' '}
                 <span className='product__badge-promotion-label'>Giảm</span>
               </div>
             </div>
@@ -27,13 +36,21 @@ function Product(props) {
         <div className='product__item-info'>
           {/* name */}
           <div className='product__item-name'>
-            <div className='product__item-name-product'>GĂNG TAY SIÊU DAI HÌNH HƯU HẠC</div>
+            <div className='product__item-name-product'>{name}</div>{' '}
           </div>
           {/* sale-price */}
           <div className='product__item-prices'>
-            <div className='product_item-prices-original'>25.000</div>
+            <div className='product_item-prices-original'>
+              {new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND',
+              }).format(price)}
+            </div>
             <div className='product__item-prices-sale' style={{ maxWidth: 'calc(100% - 22px)' }}>
-              17.000
+              {new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND',
+              }).format(salePrice)}
             </div>
             <div className='product__item-freeShip'>
               <svg height='12' viewBox='0 0 20 12' width='20' className='icon-free-shipping'>
@@ -62,9 +79,9 @@ function Product(props) {
               <FavoriteBorderIcon />
             </div>
             <div className='product__item-rate'>
-              <Rating name='half-rating-read' value={5} precision={0.1} readOnly />
+              <Rating name='half-rating-read' value={rate} precision={0.1} readOnly />{' '}
             </div>
-            <div className='product__item-saled'>Đã bán 45</div>
+            <div className='product__item-saled'>Đã bán {quantitySold}</div>{' '}
           </div>
           {/* adress */}
           <div className='product__item-address'>Hồ Chí Minh</div>
