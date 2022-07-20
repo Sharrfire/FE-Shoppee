@@ -21,7 +21,7 @@ function RateFilter({ onChange }) {
     (async () => {
       try {
         const list = await rateApi.getAll();
-
+        console.log(list);
         setRateList(
           list.map((x) => ({
             id: x.id,

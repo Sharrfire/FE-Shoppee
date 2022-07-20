@@ -11,9 +11,9 @@ CommentList.defaultProps = {
 
 function CommentList({ commentList }) {
   return (
-    <div className="product__rating-list">
+    <div className='product__rating-list'>
       {commentList.map((comment) => (
-        <div className="product__comment-list" key={comment.id}>
+        <div className='product__comment-list' key={comment.id}>
           <CommentDetail comment={comment} />
         </div>
       ))}

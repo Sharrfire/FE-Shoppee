@@ -27,13 +27,8 @@ function FilterSkeleton({ length }) {
         {Array.from(new Array(length)).map((x, index) => (
           <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
             <Box>
-              <Skeleton
-                className={classes.top}
-                variant="rect"
-                width="240px"
-                height={230}
-              />
-              <Skeleton variant="rect" width="240px" height={100} />
+              <Skeleton className={classes.top} variant='rect' width='240px' height={230} />
+              <Skeleton variant='rect' width='240px' height={100} />
             </Box>
           </Grid>
         ))}

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { Button, makeStyles } from '@material-ui/core';
-import Rating from '@material-ui/lab/Rating';
+import { makeStyles } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Rating from '@material-ui/lab/Rating';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import AddToCartForm from './AddToCartForm';
 import { addToCart } from './shoppingCart/CartSlice';
-import { useDispatch } from 'react-redux';
 ProductInfo.propTypes = {
   product: PropTypes.object,
 };
@@ -26,8 +26,9 @@ const useStyle = makeStyles((theme) => ({
 function ProductInfo({ product = {} }) {
   const classes = useStyle();
   const dispatch = useDispatch();
-  const { name, salePrice, price, quantitySold, rate, colors, images } = product;
-  console.log(product);
+  // const { name, salePrice, price, rate, colors } = product;
+  const { name, salePrice, price, quantitySold, rate, colors } = product;
+  // console.log(product);
   const [product1, setProduct1] = useState(product);
   const handleAddtoCart = (data) => {
     const newProduct = { ...product1 };
@@ -60,7 +61,7 @@ function ProductInfo({ product = {} }) {
             <div className='product__review-reviewed-label'>Đánh giá</div>
           </div>
           <div className='product__review-sold'>
-            <div className='product__review-sold-number'>3k</div>
+            <div className='product__review-sold-number'>{quantitySold}</div>
             <div className='product__review-sold-label'>Đã bán</div>
           </div>
         </div>

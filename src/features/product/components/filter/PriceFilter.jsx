@@ -26,6 +26,8 @@ const useStyle = makeStyles((theme) => ({
 }));
 function PriceFilter({ onChange = null }) {
   const classes = useStyle();
+
+  const history = useNavigate();
   const [values, setValues] = useState({
     priceMin: 0,
     priceMax: 0,
@@ -39,9 +41,8 @@ function PriceFilter({ onChange = null }) {
   };
   const handleSubmit = () => {
     if (onChange) onChange(values);
+    setValues({ priceMin: 0, priceMax: 0 });
   };
-
-  const history = useNavigate();
 
   const handleDeleteAll = async () => {
     setValues({ priceMin: 0, priceMax: 0 });

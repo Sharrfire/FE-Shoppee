@@ -58,7 +58,7 @@ function CommentFilter({ id, filters, onChange = null }) {
       <div className='product__rating-briefing'>
         <div className='product__rating-briefing-wapper'>
           <span className='product__rating-briefing-score'>4.9</span>
-          <span>trên 5</span>
+          <span> trên 5</span>
         </div>
         <div className='product__rating-briefing-start'>
           <Rating name='half-rating-read' value={4.9} precision={0.1} readOnly className={classes.rate} />

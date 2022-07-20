@@ -3,8 +3,9 @@ import Pagination from '@material-ui/lab/Pagination';
 import queryString from 'query-string';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import productApi from '../../../api/productApi';
-import '../../../assets/css/product.css';
+import productApi from '~/api/productApi';
+import ProductSkeleton from '~/components/skeleton/ProductSkeleton';
+import '~/assets/css/product.css';
 import ProductFilter from '../components/ProductFilter';
 import ProductList from '../components/ProductList';
 import ProductSort from '../components/ProductSort';
@@ -145,7 +146,9 @@ function ListProduct(props) {
               pagination={pagination}
               onChangePagi={handlePageChange}
             />
-            <ProductList productList={productList} />
+            {/* <ProductList productList={productList} /> */}
+            {loading ? <ProductSkeleton /> : <ProductList productList={productList} />}
+
             <div className='product_pagination'>
               <ThemeProvider theme={theme}>
                 <Pagination
