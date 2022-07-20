@@ -175,11 +175,11 @@ function ProductInfo({ product = {} }) {
             </div>
           </div>
         </div>
-        {/* <div className='product__action'>
+        <div className='product__action'>
           <AddToCartForm colors={colors} onSubmit={handleAddtoCart} />
-        </div> */}
+        </div>
         <div className='product__more'>
-          <a href='' className='product__more-1'>
+          <div className='product__more-1'>
             <img
               src='https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/67454c89080444c5997b53109072c9e0.png'
               alt=''
@@ -187,7 +187,7 @@ function ProductInfo({ product = {} }) {
             />
             <span className='more1'>Shopee Đảm Bảo</span>
             <span className='more2'>3 Ngày Trả Hàng / Hoàn Tiền</span>
-          </a>
+          </div>
         </div>
       </div>
     </div>

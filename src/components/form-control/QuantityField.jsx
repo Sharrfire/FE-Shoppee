@@ -1,6 +1,7 @@
 import { Box, FormControl, FormHelperText, IconButton, makeStyles, OutlinedInput, Typography } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
+import { AddCircleOutlineOutlined, RemoveCircleOutlineOutlined } from '@material-ui/icons';
+// import AddIcon from '@material-ui/icons/Add';
+// import RemoveIcon from '@material-ui/icons/Remove';
 import PropTypes from 'prop-types';
 import { Controller } from 'react-hook-form';
 
@@ -51,12 +52,11 @@ function QuantityField(props) {
           control={form.control}
           render={({ onChange, onBlur, value, name }) => (
             <Box className={classes.root}>
-              <IconButton className={classes.btn}>
-                <RemoveIcon
-                  className={classes.icon}
-                  onClick={() => setValue(name, Number.parseInt(value) ? Number.parseInt(value) - 1 : 1)}
-                />
-              </IconButton>
+              <div onClick={() => setValue(name, Number.parseInt(value) ? Number.parseInt(value) - 1 : 1)}>
+                <IconButton className={classes.btn}>
+                  <RemoveCircleOutlineOutlined className={classes.icon} />
+                </IconButton>
+              </div>
 
               <OutlinedInput
                 className={classes.input}
@@ -67,13 +67,11 @@ function QuantityField(props) {
                 onChange={onChange}
                 onBlur={onBlur}
               />
-
-              <IconButton className={classes.btn}>
-                <AddIcon
-                  className={classes.icon}
-                  onClick={() => setValue(name, Number.parseInt(value) ? Number.parseInt(value) + 1 : 1)}
-                />
-              </IconButton>
+              <div onClick={() => setValue(name, Number.parseInt(value) ? Number.parseInt(value) + 1 : 1)}>
+                <IconButton className={classes.btn}>
+                  <AddCircleOutlineOutlined className={classes.icon} />
+                </IconButton>
+              </div>
             </Box>
           )}
         />

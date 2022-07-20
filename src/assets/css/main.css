@@ -80,7 +80,7 @@
     background-color: var(--white-color);
     border-radius: 2px;
     list-style: none;
-    z-index: 1;
+    z-index: 3;
     box-shadow: 0 1px 2px #e0e0e0;
     display: none;
     animation: fadeIn linear 0.2s;
@@ -235,6 +235,7 @@
 
 .header__logo {
     width: 200px;
+    cursor: pointer;
 }
 
 .header__logo-img {
@@ -256,6 +257,7 @@
 .header__cart {
     width: 150px;
     text-align: center;
+    z-index: 2;
 }
 
 .header__cart-wrap {

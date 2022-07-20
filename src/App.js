@@ -8,6 +8,7 @@ import ProductFeature from './features';
 import ShoppingCartFeature from './features/product/components/shoppingCart/ShoppingCartFeature';
 import ListProduct from './features/product/pages/ListProduct';
 import ProductDetail from './features/product/pages/ProductDetail';
+import CheckOutFeature from './features/checkout/CheckOutFeature';
 function App() {
   return (
     <div className='App'>
@@ -27,6 +28,7 @@ function App() {
           <Route path=':productId/*' element={<ProductDetail />}></Route>
         </Route>
         <Route path={`/cart`} element={<ShoppingCartFeature />} />
+        <Route path={`/checkout`} component={CheckOutFeature} exact />
       </Routes>
     </div>
   );

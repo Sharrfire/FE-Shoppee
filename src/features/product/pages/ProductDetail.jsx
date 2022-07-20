@@ -108,7 +108,7 @@ function ProductDetail(props) {
                 Shopee
               </Link>
               <Typography color='textPrimary' className={classes.path}>
-                Product Name
+                {product.name}{' '}
               </Typography>
             </Breadcrumbs>
           </div>
@@ -116,7 +116,7 @@ function ProductDetail(props) {
         <Paper elevation={0} className={classes.paper}>
           <div className='row'>
             <div className='col l-5'>
-              <ProductImg />
+              <ProductImg images={product.images} />
             </div>
             <div className='col l-7'>{product.id && <ProductInfo product={product} />}</div>
           </div>

@@ -75,7 +75,7 @@ function Comment({ id }) {
         const params2 = { ...queryParams };
 
         const rp = await CommentApi.getAll(params2, id);
-
+        console.log(rp, 'comments');
         const { comments, pagination } = rp;
 
         setComemntList(comments);

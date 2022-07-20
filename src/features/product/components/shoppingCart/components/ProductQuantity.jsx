@@ -10,8 +10,9 @@ ProductQuantity.propTypes = {
   quantityItem: PropTypes.number,
 };
 
-function ProductQuantity({ id1, id2, onChange = null, quantityItem }) {
+function ProductQuantity({ idp, idc, onChange = null, quantityItem }) {
   const handleOnChange = async (values) => {
+    console.log('values', values);
     if (onChange) {
       await onChange(values);
     }
@@ -23,7 +24,7 @@ function ProductQuantity({ id1, id2, onChange = null, quantityItem }) {
   });
   return (
     <form>
-      <QuantityCart name="quantity" id1={id1} id2={id2} form={form} />
+      <QuantityCart name='quantity' idp={idp} idc={idc} form={form} />{' '}
     </form>
   );
 }

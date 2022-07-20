@@ -11,7 +11,7 @@ import classNames from 'classnames';
 import { useState } from 'react';
 AddToCartForm.propTypes = {
   colors: PropTypes.array,
-  onSubmit: PropTypes.func,
+  onSubmit1: PropTypes.func,
 };
 const useStyle = makeStyles((theme) => ({
   btn1: {
