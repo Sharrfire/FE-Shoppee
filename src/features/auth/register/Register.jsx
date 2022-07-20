@@ -15,10 +15,12 @@ function Register(props) {
     try {
       //auto set username = email
       // values.username = values.email;
-
       const action = register(values);
+      console.log('action', action);
       const resultAction = await dispath(action);
+      console.log('resultAction', resultAction);
       const user = unwrapResult(resultAction);
+      console.log('user', user);
       //close dialog
       const { closeDialog } = props;
       if (closeDialog) {

@@ -1,5 +1,6 @@
 import { Button, makeStyles } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import '~/assets/css/shoppingCart.css';
 import { removeAll } from './CartSlice';
 import ProductsCart from './components/ProductsCart';
@@ -39,6 +40,12 @@ function ShoppingCartFeature(props) {
 
   const dispatch = useDispatch();
   const cartTotal = useSelector(cartTotalCountSelectors);
+
+  const history = useNavigate();
+
+  const handleCheckOut = () => {
+    history('/checkout');
+  };
   const products = useSelector((state) => {
     return state.cart.cartItems;
   });
@@ -94,7 +101,9 @@ function ShoppingCartFeature(props) {
                   </div>
                 </div>
                 <div className='shopping__cart-footer-checkOut'>
-                  <Button className={classes.btn2}>Mua hàng</Button>
+                  <Button className={classes.btn2} onClick={handleCheckOut}>
+                    Mua hàng
+                  </Button>{' '}
                 </div>
               </div>
             </div>{' '}

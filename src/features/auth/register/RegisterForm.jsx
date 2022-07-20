@@ -1,6 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Avatar, Button, LinearProgress, makeStyles, Typography } from '@material-ui/core';
-import LockOutlined from '@material-ui/icons/LockOpenOutlined';
+import { Button, LinearProgress, makeStyles, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -73,6 +72,7 @@ function RegisterForm(props) {
 
   const handleSubmit = async (values) => {
     const { onSubmit } = props;
+    console.log('values', values);
     if (onSubmit) {
       await onSubmit(values);
     }
