@@ -7,30 +7,26 @@ ProductImg.propTypes = {
 
 function ProductImg({ product = {} }) {
   const { images } = product;
-  // const [imgs] = useState(images);
+  const [imgs] = useState(images);
 
-  // const [view, setView] = useState(images.path || '');
+  const [view, setView] = useState(images[0].path);
 
-  // const handleChangeView = (img) => {
-  //   setView(img.path);
-  // };
   const handleChangeView = (img) => {
-    // setView(img.path);
+    setView(img.path);
   };
   return (
     <div className='product__detail-img'>
       <div className='product__detail-img-main'>
         <div className='product__detail-img-top'>
-          {/* <img src={view} alt='' className='product__detail-img-view' /> */}
-          <img alt='This is image' className='product__detail-img-view' />
+          <img src={view} alt='' className='product__detail-img-view' />
         </div>
-        {/* <div className='product__detail-slider'>
+        <div className='product__detail-slider'>
           {imgs.map((img, index) => (
             <div key={img.id} className='product__detail-slider-item' onClick={() => handleChangeView(img)}>
               <img src={img.path} alt='' className='product__detail-slider-item-img' />
             </div>
           ))}
-        </div> */}
+        </div>
       </div>
     </div>
   );

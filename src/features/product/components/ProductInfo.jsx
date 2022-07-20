@@ -26,7 +26,8 @@ const useStyle = makeStyles((theme) => ({
 function ProductInfo({ product = {} }) {
   const classes = useStyle();
   const dispatch = useDispatch();
-  const { name, salePrice, price, quantitySold, rate, colors } = product;
+  const { name, salePrice, price, quantitySold, rate, colors, images } = product;
+  console.log(product);
   const [product1, setProduct1] = useState(product);
   const handleAddtoCart = (data) => {
     const newProduct = { ...product1 };
@@ -51,15 +52,15 @@ function ProductInfo({ product = {} }) {
         </div>
         <div className='product__review'>
           <div className='product__review-rated'>
-            <div className='product__review-number'>1.2</div>
+            <div className='product__review-number'></div>
             <Rating name='half-rating-read' value={rate} precision={0.1} readOnly className={classes.rating} />
           </div>
           <div className='product__review-reviewed'>
-            <div className='product__review-reviewed-number'>1,7k</div>
+            <div className='product__review-reviewed-number'>1.7k</div>
             <div className='product__review-reviewed-label'>Đánh giá</div>
           </div>
           <div className='product__review-sold'>
-            <div className='product__review-sold-number'>{quantitySold}</div>
+            <div className='product__review-sold-number'>3k</div>
             <div className='product__review-sold-label'>Đã bán</div>
           </div>
         </div>

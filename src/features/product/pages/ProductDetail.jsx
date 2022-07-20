@@ -115,9 +115,7 @@ function ProductDetail(props) {
         </div>
         <Paper elevation={0} className={classes.paper}>
           <div className='row'>
-            <div className='col l-5'>
-              <ProductImg images={product.images} />
-            </div>
+            <div className='col l-5'>{product.id && <ProductImg product={product} />}</div>
             <div className='col l-7'>{product.id && <ProductInfo product={product} />}</div>
           </div>
         </Paper>
