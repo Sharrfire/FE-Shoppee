@@ -77,7 +77,8 @@ function LoginForm(props) {
 
   const handleSubmit = async (values) => {
     const onSubmit1 = props.onSubmit;
-    await onSubmit1(values);
+    if (onSubmit1) await onSubmit1(values);
+    form.reset();
   };
   const { isSubmitting } = form.formState;
   return (
@@ -90,7 +91,7 @@ function LoginForm(props) {
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <InputField name='email' label='Email' form={form} />
         <PasswordField name='password' label='Password' form={form} />
-        <FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember me' />
+        <FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember me' />{' '}
         <Button type='submit' className={classes.submit} variant='contained' fullWidth>
           Đăng nhập
         </Button>

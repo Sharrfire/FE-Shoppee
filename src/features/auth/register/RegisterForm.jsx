@@ -76,12 +76,12 @@ function RegisterForm(props) {
     if (onSubmit) {
       await onSubmit(values);
     }
+    form.reset();
   };
   const { isSubmitting } = form.formState;
   return (
     <div className={classes.root}>
       {isSubmitting && <LinearProgress />}
-
       <Typography className={classes.title} component='h3' variant='h5'>
         Đăng ký
       </Typography>

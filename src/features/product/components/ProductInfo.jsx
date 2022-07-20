@@ -31,6 +31,8 @@ function ProductInfo({ product = {} }) {
   // console.log(product);
   const [product1, setProduct1] = useState(product);
   const handleAddtoCart = (data) => {
+    console.log('Form submit', data);
+
     const newProduct = { ...product1 };
     const res = colors.filter((colors) => colors.id === data.idc);
     newProduct.colors = res;

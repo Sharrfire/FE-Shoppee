@@ -41,7 +41,7 @@ function PriceFilter({ onChange = null }) {
   };
   const handleSubmit = () => {
     if (onChange) onChange(values);
-    setValues({ priceMin: 0, priceMax: 0 });
+    // setValues({ priceMin: 0, priceMax: 0 });
   };
 
   const handleDeleteAll = async () => {

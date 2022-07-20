@@ -47,7 +47,7 @@ function Login(props) {
   };
   return (
     <div>
-      <LoginForm onSubmit={handleSubmit} />
+      <LoginForm onSubmit={handleSubmit} onClose={oncloseLogin} opendangky={openFormRegister} />{' '}
     </div>
   );
 }

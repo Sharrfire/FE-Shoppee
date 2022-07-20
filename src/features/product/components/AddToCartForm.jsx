@@ -54,7 +54,7 @@ function AddToCartForm({ colors, onSubmit = null }) {
 
   const classes = useStyle();
   const schema = yup.object().shape({
-    quantity: yup.number().required('làm ơn nhập').min(1, 'Tối thiểu là 1 sản phẩm').typeError('Làm ơn nhập số'),
+    quantity: yup.number().required('Làm ơn nhập').min(1, 'Tối thiểu là 1 sản phẩm').typeError('Làm ơn nhập số'),
   });
   const form = useForm({
     defaultValues: {
@@ -64,21 +64,27 @@ function AddToCartForm({ colors, onSubmit = null }) {
     resolver: yupResolver(schema),
   });
 
+  // const handleSubmit = async (values) => {
+  //   console.log('Form submit', values);
+  // };
   const handleSubmit = async (values) => {
     // if (!isLoggedIn) {
     //   return;
     // } else {
+
     const data = {
       quantity: values.quantity,
       idc: active,
     };
-    if (data.idc === 0) {
-      return;
-    } else {
-      if (onSubmit) {
-        await onSubmit(data);
-      }
+
+    // if (data.idc === 0) {
+    //   return;
+    // } else {
+    if (onSubmit) {
+      await onSubmit(data);
     }
+    // console.log(data);
+
     // }
   };
 
@@ -109,7 +115,7 @@ function AddToCartForm({ colors, onSubmit = null }) {
         </div>
         <div className='addToCart__button'>
           <Button className={classes.btn1} type='submit'>
-            <AddShoppingCartIcon className={classes.icon} />
+            <AddShoppingCartIcon className={classes.icon} onSubmit={handleSubmit} />
             Thêm vào giỏ hàng
           </Button>
           {/* <Button className={classes.btn2} type="submit">Mua ngay</Button> */}

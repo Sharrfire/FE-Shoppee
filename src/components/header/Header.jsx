@@ -13,6 +13,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 // Local File
 
+import { logout } from '~/features/auth/userSlice';
 import { cartItemsCountSelectors } from '~/features/product/components/shoppingCart/selectors';
 import '../../assets/css/main.css';
 import appStore from '../../assets/images/appStore.png';
@@ -22,7 +23,6 @@ import Login from '../../features/auth/login/Login';
 import Register from '../../features/auth/register/Register';
 import Cart from '../cart/Cart';
 import Search from '../search/Search';
-import { logout } from '~/features/auth/userSlice';
 Header.propTypes = {};
 const MODE = {
   LOGIN: 'login',
