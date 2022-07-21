@@ -41,7 +41,7 @@ function Cart(props) {
       <h4 className='header__cart-heading'>Sản phẩm mới thêm</h4>
       <ul className='header__cart-list-item'>
         {products.map((product) => (
-          <li key={product.id} className='header__cart-item'>
+          <li key={(product.idc, product.idp)} className='header__cart-item'>
             <img className='header__cart-item-img' src={product.newProduct.images[0].path} />
             <div className='header__cart-item-info'>
               <div className='header__cart-item-head'>

@@ -30,13 +30,15 @@ function ProductInfo({ product = {} }) {
   const { name, salePrice, price, quantitySold, rate, colors } = product;
   // console.log(product);
   const [product1, setProduct1] = useState(product);
-  const handleAddtoCart = (data) => {
-    console.log('Form submit', data);
+  console.log('Product1', product1);
 
+  const handleAddtoCart = (data) => {
     const newProduct = { ...product1 };
+    console.log(newProduct, 'Res:');
+
     const res = colors.filter((colors) => colors.id === data.idc);
+
     newProduct.colors = res;
-    console.log(newProduct);
     const action = addToCart({
       idp: product.id,
       idc: data.idc,
@@ -44,6 +46,7 @@ function ProductInfo({ product = {} }) {
       quantity: data.quantity,
     });
     dispatch(action);
+    // console.log(action, 'Action:');
   };
 
   return (

@@ -53,20 +53,20 @@ function QuantityCart(props) {
           control={form.control}
           render={({ onChange, onBlur, value, name }) => (
             <Box className={classes.root}>
-              <IconButton className={classes.btn}>
-                <RemoveIcon
-                  className={classes.icon}
-                  onClick={() => {
-                    setValue(name, Number.parseInt(value) ? Number.parseInt(value) - 1 : 1);
-                    dispatch(
-                      setQuantity({
-                        idp,
-                        idc,
-                        quantity: value ? value - 1 : 1,
-                      })
-                    );
-                  }}
-                />
+              <IconButton
+                className={classes.btn}
+                onClick={() => {
+                  setValue(name, Number.parseInt(value) ? Number.parseInt(value) - 1 : 1);
+                  dispatch(
+                    setQuantity({
+                      idp,
+                      idc,
+                      quantity: value ? value - 1 : 1,
+                    })
+                  );
+                }}
+              >
+                <RemoveIcon className={classes.icon} />
               </IconButton>
 
               <OutlinedInput
@@ -87,20 +87,20 @@ function QuantityCart(props) {
                 }}
               />
 
-              <IconButton className={classes.btn}>
-                <AddIcon
-                  className={classes.icon}
-                  onClick={() => {
-                    setValue(name, Number.parseInt(value) ? Number.parseInt(value) + 1 : 1);
-                    dispatch(
-                      setQuantity({
-                        idp,
-                        idc,
-                        quantity: value ? value + 1 : 1,
-                      })
-                    );
-                  }}
-                />
+              <IconButton
+                className={classes.btn}
+                onClick={() => {
+                  setValue(name, Number.parseInt(value) ? Number.parseInt(value) + 1 : 1);
+                  dispatch(
+                    setQuantity({
+                      idp,
+                      idc,
+                      quantity: value ? value + 1 : 1,
+                    })
+                  );
+                }}
+              >
+                <AddIcon className={classes.icon} />
               </IconButton>
             </Box>
           )}

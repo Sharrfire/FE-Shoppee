@@ -78,10 +78,8 @@ function ProductCartDetail({ product }) {
             )}
           </span>
         </div>
-        <div className='shopping__cart-product-delete'>
-          <Button onClick={handleClickRemove} className={classes.btn}>
-            Xóa
-          </Button>{' '}
+        <div className='shopping__cart-product-delete' onClick={handleClickRemove}>
+          <Button className={classes.btn}>Xóa</Button>{' '}
         </div>
       </div>
     </div>

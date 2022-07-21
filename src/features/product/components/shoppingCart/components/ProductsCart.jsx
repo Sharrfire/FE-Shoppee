@@ -13,8 +13,8 @@ ProductsCart.defaultProps = {
 function ProductsCart({ products }) {
   return (
     <div className='shopping__cart-list'>
-      {products.map((product, index) => (
-        <div key={(product.idp, product.idc)}>
+      {products.map((product) => (
+        <div key={product.idp}>
           <ProductCartDetail product={product} />
         </div>
       ))}
