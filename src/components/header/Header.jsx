@@ -10,30 +10,30 @@ import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import CloseIcon from '@material-ui/icons/Close';
-import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HomeIcon from '@material-ui/icons/Home';
+import MenuIcon from '@material-ui/icons/Menu';
+import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import SearchIcon from '@material-ui/icons/Search';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 // Local File
 import { logout } from '~/features/auth/userSlice';
 import { cartItemsCountSelectors } from '~/features/product/components/shoppingCart/selectors';
-import '../../assets/css/main.css';
-import appStore from '../../assets/images/appStore.png';
-import googleplay from '../../assets/images/googlePlay.png';
-import qrCode from '../../assets/images/qrcode.png';
-import Login from '../../features/auth/login/Login';
-import Register from '../../features/auth/register/Register';
+import addressApi from '~/api/addressApi';
+import '~/assets/css/main.css';
+import '~/assets/css/reponsive.css';
+import appStore from '~/assets/images/appStore.png';
+import googleplay from '~/assets/images/googlePlay.png';
+import no_cart from '~/assets/images/no_cart.png';
+import qrCode from '~/assets/images/qrcode.png';
+import Login from '~/features/auth/login/Login';
+import Register from '~/features/auth/register/Register';
+import { removeAll } from '~/features/product/components/shoppingCart/CartSlice';
+import { removeAllAddress } from '~/features/user/component/AddressSlice';
 import Cart from '../cart/Cart';
 import Search from '../search/Search';
-import { removeAll } from '../../features/product/components/shoppingCart/CartSlice';
-import cartApi from '../../api/cartApi';
-import addressApi from '~/api/addressApi';
-import { removeAllAddress } from '~/features/user/component/AddressSlice';
-import no_cart from '../../assets/images/no_cart.png';
 Header.propTypes = {};
 const MODE = {
   LOGIN: 'login',
@@ -71,6 +71,7 @@ const useStyle = makeStyles((theme) => ({
     right: theme.spacing(1),
     color: theme.palette.grey[500],
   },
+
   iconHeader: {
     fontSize: '30px',
     color: '#fff',
@@ -103,23 +104,21 @@ function Header(props) {
   const products = useSelector((state) => {
     return state.cart.cartItems;
   });
-
   const data2 = JSON.parse(localStorage.getItem('address'));
   const data1 = JSON.parse(localStorage.getItem('cart'));
   console.log('data2', data2);
-
   const handleLogout = () => {
     (async () => {
       try {
         // const thien = { cartItems: data1 };
-        const thai = { addressList: data2 };
+        const thai1 = { addressList: data2 };
         // await cartApi.add(thien);
-        await addressApi.add(thai);
+        await addressApi.add(thai1);
         const action = logout();
         const action1 = removeAll();
         const action2 = removeAllAddress();
-        dispatch(action1);
         dispatch(action);
+        dispatch(action1);
         dispatch(action2);
       } catch (error) {
         console.log(error);
@@ -133,6 +132,24 @@ function Header(props) {
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const history = useNavigate();
 
+  const handleClickHome = () => {
+    history('/');
+  };
+
+  const handleClickCart = () => {
+    history('/cart');
+  };
+  const handleClickPurchase = () => {
+    history('/user/purchase');
+  };
+
+  const handleClickUser = () => {
+    history('/user');
+  };
+
+  const handleClickAddress = () => {
+    history('/user/address');
+  };
   // form đăng ký
   const [openSignUp, setOpenSignUp] = useState(false);
 
@@ -182,25 +199,6 @@ function Header(props) {
   const handleCloseChangePass = () => {
     setOpenChangePass(false);
     setOpenLogIn(true);
-  };
-
-  const handleClickHome = () => {
-    history('/');
-  };
-
-  const handleClickCart = () => {
-    history('/cart');
-  };
-  const handleClickPurchase = () => {
-    history('/user/purchase');
-  };
-
-  const handleClickUser = () => {
-    history('/user');
-  };
-
-  const handleClickAddress = () => {
-    history('/user/address');
   };
   return (
     <div className='header'>
@@ -290,7 +288,7 @@ function Header(props) {
                     </svg>
                   </div>
                 </div>
-                <span className='header__navbar-user-name'>{loggedInUser.fullname}</span>{' '}
+                <span className='header__navbar-user-name'>{loggedInUser.fullname}</span>
                 <ul className='header__navbar-user-menu'>
                   <li className='header__navbar-user-item' onClick={handleClickUser}>
                     <p>Tài Khoảng của tôi</p>
@@ -390,7 +388,7 @@ function Header(props) {
             </svg>
             {/* </Link> */}
           </div>
-
+          <input type='checkbox' id='header-search-bar' hidden className='header__search-icon-bar' />
           <Search />
 
           <div className='header__cart'>
@@ -403,7 +401,7 @@ function Header(props) {
                 </div>
               )}
               <span className='header__cart-notice'>{cartItemsCount}</span>
-              {products.length !== 0 && <Cart />}
+              {products.length !== 0 && <Cart />}{' '}
             </div>
           </div>
         </div>

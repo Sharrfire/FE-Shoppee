@@ -22,7 +22,7 @@ function ProductImg({ product = {} }) {
         </div>
         <div className='product__detail-slider'>
           {imgs.map((img, index) => (
-            <div key={img.id} className='product__detail-slider-item' onClick={() => handleChangeView(img)}>
+            <div key={index} className='product__detail-slider-item' onClick={() => handleChangeView(img)}>
               <img src={img.path} alt='' className='product__detail-slider-item-img' />
             </div>
           ))}

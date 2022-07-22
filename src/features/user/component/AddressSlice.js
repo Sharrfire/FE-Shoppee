@@ -1,6 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import addressApi from '../../../api/addressApi';
-import StorageKeys from '../../../constants/storage-key';
+import { createSlice } from '@reduxjs/toolkit';
 let addressItemsStore = [];
 
 if (localStorage.getItem('address')) addressItemsStore = JSON.parse(localStorage.getItem('address'));

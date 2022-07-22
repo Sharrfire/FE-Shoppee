@@ -1,6 +1,7 @@
-import { Box } from '@material-ui/core';
-import { Skeleton } from '@material-ui/lab';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { Box, Grid } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
 
 ProductSkeleton.propTypes = {
   length: PropTypes.number,
@@ -12,19 +13,17 @@ ProductSkeleton.defaultProps = {
 function ProductSkeleton({ length }) {
   return (
     <Box>
-      <div className='row' style={{ marginTop: '25px' }}>
+      <Grid container>
         {Array.from(new Array(length)).map((x, index) => (
-          <div key={index} className='col l-2-4 m-4 c-6' style={{ marginBottom: '10px' }}>
-            <div>
-              <Skeleton variant='rect' width='100%' height={250} />
+          <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
+            <Box padding={1}>
+              <Skeleton variant='rect' width='100%' height={118} />
               <Skeleton />
-              <Skeleton />
-              <Skeleton />
-              <Skeleton width='50%' style={{ display: 'flex', float: 'right' }} />
-            </div>
-          </div>
+              <Skeleton width='60%' />
+            </Box>
+          </Grid>
         ))}
-      </div>
+      </Grid>
     </Box>
   );
 }

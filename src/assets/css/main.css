@@ -143,8 +143,8 @@
 }
 
 .header__navbar-item--has-qr:hover .header__qr{
-    z-index: 2;
     display: block;
+    z-index:5;
 }
 
 .header__navbar-item:hover,
@@ -281,6 +281,7 @@
 
 .header__cart-wrap:hover .header__cart-list{
     display: block;
+    z-index: 6;
 }
 
 .header__cart-list {
@@ -519,7 +520,9 @@
 .header-with-search-left {
     display: none;
 }
-
+.header__search-form:focus ~ .header__search-history{
+     display: block;
+}
 
 .header__search-product-list {
     padding-left: 0;
@@ -555,7 +558,6 @@
     overflow: hidden;
     display: none;
     z-index: 5;
-    
 }
 
 .header__search-history-title {
@@ -588,9 +590,7 @@
     line-height: 38px;
     display: block;
 }
-.header__search-input:focus ~ .header__search-history {
-    display: block;
-}
+
 .product__sort-tablet-mobile {
     position: fixed;
     background-color: #fff;

@@ -1,57 +1,53 @@
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 
 import DeliveryAddress from './Address/DeliveryAddress';
 import DeliveryAddressList from './Address/DeliveryAddressList';
-import DeliveryAddressMobileList from './Address/DeliveryAddressMobileList';
 CheckOutAddress.propTypes = {
   addressList: PropTypes.array,
-  addressChecked: PropTypes.object,
-  onChange: PropTypes.object,
+  onSubmit: PropTypes.func,
 };
 
 CheckOutAddress.defaultProps = {
   addressList: [],
 };
 
-function CheckOutAddress({ onChange = null, addressList, addressChecked = {} }) {
+function CheckOutAddress({ addressList, onSubmit = null }) {
   const [view, setView] = useState(true);
-  console.log('addressChecked', addressChecked);
+
   const handleChangeView = (state) => {
     setView(state);
   };
+  // conver array to object
+  useEffect(() => {}, []);
+  const arrayChecked = addressList.filter((address) => address.status === true);
+  var arrayToString = JSON.stringify(Object.assign({}, arrayChecked[0]));
+  var res = JSON.parse(arrayToString);
+  console.log('res', res);
+  // end conver array to object
 
-  const handleChangeAddress = async (value) => {
-    console.log(value);
-    if (onChange) {
-      await onChange(value);
-    }
+  const [addressChecked, setAddressChecked] = useState(res);
+
+  const handleChangeAddress = () => {
+    setAddressChecked();
   };
 
+  const handleSubmitNewAddress = async () => {};
+
   return (
-    <div>
-      <div className='checkout__address'>
-        <div className='checkout__address--border-top hide-on-mobile'></div>
-        <div className='checkout__address-content'>
-          {view === true && <DeliveryAddress onClick={handleChangeView} address={addressChecked} />}
-          {view === false && (
-            <>
-              <DeliveryAddressList
-                onClickChange={handleChangeView}
-                addressList={addressList}
-                addressChecked={addressChecked}
-                onChange={handleChangeAddress}
-              />
-              <DeliveryAddressMobileList
-                onClickChange={handleChangeView}
-                addressList={addressList}
-                addressChecked={addressChecked}
-                onChange={handleChangeAddress}
-              />
-            </>
-          )}
-        </div>
-        <div className='checkout__address--border-bottom'></div>
+    <div className='checkout__address'>
+      <div className='checkout__address--border-top'></div>
+      <div className='checkout__address-content'>
+        {view === true && <DeliveryAddress onClick={handleChangeView} address={addressChecked} />}
+        {view === false && (
+          <DeliveryAddressList
+            onClick={handleChangeView}
+            onSubmit={handleSubmitNewAddress}
+            addressList={addressList}
+            addressChecked={addressChecked}
+            onChange={handleChangeAddress}
+          />
+        )}
       </div>
     </div>
   );

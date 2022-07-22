@@ -6,12 +6,9 @@ import brandApi from '../../../api/brandApi';
 import BrandFilter from './filter/BrandFilter';
 import PriceFilter from './filter/PriceFilter';
 import RateFilter from './filter/RateFilter';
-import FilterSkeleton from '../../../components/skeleton/FilterSkeleton';
-import RateSkeletion from '../../../components/skeleton/RateSkeletion';
 ProductFilter.propTypes = {
   filters: PropTypes.object.isRequired,
   onChange: PropTypes.func,
-  // loading: PropTypes.bool,
 };
 const useStyle = makeStyles((theme) => ({
   icon: {
@@ -34,7 +31,7 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-function ProductFilter({ filters, onChange = null, loading }) {
+function ProductFilter({ filters, onChange = null }) {
   const classes = useStyle();
 
   const [brandList, setBrandList] = useState([]);
@@ -85,18 +82,13 @@ function ProductFilter({ filters, onChange = null, loading }) {
     onChange(newFilters);
   };
   return (
-    <nav className='category hide-on-mobile-tablet'>
+    <nav className='category'>
       <h3 className='category__heading' style={{ display: 'flex' }}>
         <ListIcon className={classes.icon} />
         Danh mục
       </h3>
-
-      {loading ? (
-        <FilterSkeleton />
-      ) : (
-        <BrandFilter onChange={handleBrandChange} brandList={brandList} active={active} />
-      )}
-      {loading ? <RateSkeletion /> : <RateFilter onChange={handleRateChange} />}
+      <BrandFilter onChange={handleBrandChange} brandList={brandList} active={active} />
+      <RateFilter onChange={handleRateChange} />
       <PriceFilter onChange={handlePriceChange} />
     </nav>
   );

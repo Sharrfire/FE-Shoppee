@@ -1,12 +1,14 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import QuantityField from '../../../components/form-control/QuantityField';
+import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
 import { Button, makeStyles } from '@material-ui/core';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import ProductType from './ProductType';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import QuantityField from '../../../components/form-control/QuantityField';
 AddToCartForm.propTypes = {
   colors: PropTypes.array,
   onSubmit1: PropTypes.func,
@@ -116,9 +118,7 @@ function AddToCartForm({ colors, onSubmit = null }) {
             <AddShoppingCartIcon className={classes.icon} onSubmit={handleSubmit} />
             Thêm vào giỏ hàng
           </Button>
-          <Button className={classes.btn2} type='submit'>
-            Mua ngay
-          </Button>
+          {/* <Button className={classes.btn2} type="submit">Mua ngay</Button> */}
         </div>
       </form>
     </div>

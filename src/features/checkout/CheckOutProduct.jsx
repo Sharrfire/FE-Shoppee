@@ -1,4 +1,6 @@
+import React from 'react';
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 
 CheckOutProduct.propTypes = {
   product: PropTypes.object,
@@ -20,7 +22,7 @@ function CheckOutProduct({ product = {} }) {
         </span>
       </div>
       <div className='checkout__product-type'>
-        <span className='checkout__product-type1'>Loại: {newProduct.colors.colorName}</span>{' '}
+        <span className='checkout__product-type1'>Loại: {newProduct.colors[0]}</span>
         {/* <span className="checkout__product-type1">Loại: {newProduct.colors[0].colorName}</span> */}
       </div>
       <div className='checkout__product-price'>
