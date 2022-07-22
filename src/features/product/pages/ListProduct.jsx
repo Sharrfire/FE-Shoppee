@@ -4,11 +4,13 @@ import queryString from 'query-string';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import productApi from '~/api/productApi';
-import ProductSkeleton from '~/components/skeleton/ProductSkeleton';
 import '~/assets/css/product.css';
+import ProductSkeleton from '~/components/skeleton/ProductSkeleton';
 import ProductFilter from '../components/ProductFilter';
 import ProductList from '../components/ProductList';
 import ProductSort from '../components/ProductSort';
+import ProductSortTablet from '../components/ProductSortTablet';
+// import '../../../assets/css/reponsive.css';
 ListProduct.propTypes = {};
 
 const useStyle = makeStyles((theme) => ({
@@ -63,8 +65,8 @@ function ListProduct(props) {
       _page: Number.parseInt(params._page) || 1,
       _limit: Number.parseInt(params._limit) || 15,
       brand: Number.parseInt(params.brand) || 1,
-      _sortBy: params._sortBy || 'ctime',
-      // _sortBy: params._sortBy || 'ctimes',
+      // _sortBy: params._sortBy || 'ctime',
+      _sortBy: params._sortBy || 'ctimes',
     };
   }, [location.search]);
 
@@ -135,12 +137,19 @@ function ListProduct(props) {
   const classes = useStyle();
   return (
     <div className='app__container'>
-      <div className='grid wide content'>
+      <ProductSortTablet
+        currentSort={queryParams._sortBy}
+        onChange={handleSortChange}
+        pagination={pagination}
+        onChangePagi={handlePageChange}
+      />
+      <div className='grid wide content paddingTop'>
+        {' '}
         <div className='row'>
-          <div className='col l-2'>
-            <ProductFilter filters={queryParams} onChange={handleFilterChange} />
+          <div className='col l-2 c-0 m-0'>
+            <ProductFilter filters={queryParams} onChange={handleFilterChange} loading={loading} />
           </div>
-          <div className='col l-10'>
+          <div className='col l-10 c-12 m-12'>
             <ProductSort
               currentSort={queryParams._sortBy}
               onChange={handleSortChange}
@@ -149,7 +158,6 @@ function ListProduct(props) {
             />
             {/* <ProductList productList={productList} /> */}
             {loading ? <ProductSkeleton /> : <ProductList productList={productList} />}
-
             <div className='product_pagination'>
               <ThemeProvider theme={theme}>
                 <Pagination

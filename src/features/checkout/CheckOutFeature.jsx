@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { Button, FormControl, FormControlLabel, makeStyles, Radio, RadioGroup } from '@material-ui/core';
+import classNames from 'classnames';
+import { useSnackbar } from 'notistack';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import orderApi from '../../api/orderApi';
+import '../../assets/css/checkout.css';
+import { cartTotalCountSelectors } from '../product/components/shoppingCart/selectors';
 import CheckOutAddress from './CheckOutAddress';
 import CheckOutProductList from './CheckOutProductList';
-import CheckOutPayMent from './CheckOutPayment';
-import '../../assets/css/checkout.css';
-import { useSelector } from 'react-redux';
-import classNames from 'classnames';
-import { FormControl, RadioGroup, FormControlLabel, Radio, makeStyles, Button } from '@material-ui/core';
-import { cartTotalCountSelectors } from '../product/components/shoppingCart/selectors';
-import orderApi from '../../api/orderApi';
-import { useEffect } from 'react';
-import addressApi from '../../api/addressApi';
 CheckOutFeature.propTypes = {};
 
 const useStyle = makeStyles((theme) => ({
@@ -67,7 +65,7 @@ const useStyle = makeStyles((theme) => ({
 
 function CheckOutFeature(props) {
   const classes = useStyle();
-
+  const { enqueueSnackbar } = useSnackbar();
   const cartTotal = useSelector(cartTotalCountSelectors);
   const totalBill = cartTotal + 20000;
 
@@ -81,51 +79,65 @@ function CheckOutFeature(props) {
     setPayment(event.target.value);
   };
 
-  // gọi api address
-  const [addressList, setAddressList] = useState([]);
-  console.log('addressList', addressList);
-  useEffect(() => {
-    (async () => {
-      try {
-        const list = await addressApi.getAll();
-        setAddressList(list);
-      } catch (error) {
-        console.log('error', error);
-      }
-    })();
-  }, []);
-  const handleNewAddress = async () => {};
+  const addressList = useSelector((state) => {
+    return state.address.addressItems;
+  });
+
+  // conver array to object
+  const checked = addressList.find((address) => address.status === true);
+  const [addressChecked, setAddressChecked] = useState(checked);
+
+  const handleChangeAddress = (value) => {
+    setAddressChecked(value);
+  };
+  // end conver array to object
 
   const loggedInUser = useSelector((state) => state.user.current);
-  const { fullname, phone, email, address } = loggedInUser;
+  const { email } = loggedInUser;
   const handleSubmit = () => {
     const data = {
-      fullname: fullname,
+      fullname: addressChecked.name,
       email: email,
-      address: address,
-      phone: phone,
+      address: addressChecked.address,
+      phone: addressChecked.phone,
       cartItems: products,
       cartTotal: cartTotal,
       totalBill: totalBill,
       payment: payment,
     };
-
+    // console.log('data', data);
     orderApi.add(data);
+    enqueueSnackbar('bạn đã đặt mua đơn hàng', { variant: 'success' });
   };
-
+  const [view1, setView1] = useState(true);
+  const handleChangeView1 = (state) => {
+    setView1(state);
+  };
+  const isLoggedIn = !!loggedInUser.id;
+  if (!isLoggedIn) {
+    return <Navigate replace to='/' />;
+  }
   return (
     <div>
       <div className='checkout__content'>
         <div className='grid wide'>
           <div className='row'>
-            <div className='col l-12'>
-              {addressList.length > 0 && <CheckOutAddress addressList={addressList} onSubmit={handleNewAddress} />}
+            <div className='col l-12 c-12 m-12'>
+              {addressList.length > 0 && (
+                <CheckOutAddress
+                  addressList={addressList}
+                  addressChecked={addressChecked}
+                  onChange={handleChangeAddress}
+                  view1={view1}
+                  onClickChange1={handleChangeView1}
+                />
+              )}
             </div>
           </div>
           <div className='row'>
-            <div className='col l-12'>
+            <div className='col l-12 c-12 m-12'>
               <div className='checkout__product'>
-                <div className='checkout__product-header'>
+                <div className='checkout__product-header hide-on-mobile'>
                   <div className='checkout__product-header-label'>
                     <div className='checkout__product-header-product'>
                       <div className='checkout__product-header-product-1'>Sản phẩm</div>
@@ -141,7 +153,7 @@ function CheckOutFeature(props) {
             </div>
           </div>
           <div className='row'>
-            <div className='col l-12'>
+            <div className='col l-12 c-12 m-12'>
               <div className='checkout__product-payment'>
                 <div className='checkout__product-payment-categories'>
                   <div>
@@ -193,7 +205,7 @@ function CheckOutFeature(props) {
                   </div>
                   <div className='checkout__product-payment-action'>
                     <div className='checkout__product-payment-action-lable'>
-                      <div className='checkout__product-payment-action-label1'>
+                      <div className='checkout__product-payment-action-label1 hide-on-mobile'>
                         Nhấn "Đặt hàng" đồng nghĩa với việc bạn đồng ý tuân theo{' '}
                         <a
                           href='https://shopee.vn/legaldoc/policies/'
@@ -202,6 +214,12 @@ function CheckOutFeature(props) {
                         >
                           Điều khoản Shopee
                         </a>
+                      </div>
+                    </div>
+                    <div className='checkout__product-payment-mobile-total-Bill'>
+                      <div className='checkout__product-payment-totalBill-label'>Tổng thanh toán:</div>
+                      <div className='checkout__product-payment-totalBill'>
+                        {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalBill)}
                       </div>
                     </div>
                     <Button className={classes.btn} onClick={handleSubmit}>

@@ -10,7 +10,14 @@ import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-
+import MenuIcon from '@material-ui/icons/Menu';
+import SearchIcon from '@material-ui/icons/Search';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import CloseIcon from '@material-ui/icons/Close';
+import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
+import HomeIcon from '@material-ui/icons/Home';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 // Local File
 import { logout } from '~/features/auth/userSlice';
 import { cartItemsCountSelectors } from '~/features/product/components/shoppingCart/selectors';
@@ -24,6 +31,9 @@ import Cart from '../cart/Cart';
 import Search from '../search/Search';
 import { removeAll } from '../../features/product/components/shoppingCart/CartSlice';
 import cartApi from '../../api/cartApi';
+import addressApi from '~/api/addressApi';
+import { removeAllAddress } from '~/features/user/component/AddressSlice';
+import no_cart from '../../assets/images/no_cart.png';
 Header.propTypes = {};
 const MODE = {
   LOGIN: 'login',
@@ -61,6 +71,26 @@ const useStyle = makeStyles((theme) => ({
     right: theme.spacing(1),
     color: theme.palette.grey[500],
   },
+  iconHeader: {
+    fontSize: '30px',
+    color: '#fff',
+    marginLeft: '5px',
+  },
+
+  iconMenuMobile: {
+    marginRight: '15px',
+    fontSize: '25px',
+  },
+
+  iconExitMobile: {
+    fontSize: '40px',
+  },
+
+  iconHeaderTablet: {
+    marginRight: '15px',
+    fontSize: '40px',
+    color: '#fff',
+  },
 }));
 
 function Header(props) {
@@ -74,16 +104,23 @@ function Header(props) {
     return state.cart.cartItems;
   });
 
+  const data2 = JSON.parse(localStorage.getItem('address'));
   const data1 = JSON.parse(localStorage.getItem('cart'));
+  console.log('data2', data2);
+
   const handleLogout = () => {
     (async () => {
       try {
-        const thai = { cartItems: data1 };
-        await cartApi.add(thai);
+        // const thien = { cartItems: data1 };
+        const thai = { addressList: data2 };
+        // await cartApi.add(thien);
+        await addressApi.add(thai);
         const action = logout();
         const action1 = removeAll();
+        const action2 = removeAllAddress();
         dispatch(action1);
         dispatch(action);
+        dispatch(action2);
       } catch (error) {
         console.log(error);
       }
@@ -96,13 +133,6 @@ function Header(props) {
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const history = useNavigate();
 
-  const handleClickHome = () => {
-    history('/');
-  };
-
-  const handleClickCart = () => {
-    history('/cart');
-  };
   // form đăng ký
   const [openSignUp, setOpenSignUp] = useState(false);
 
@@ -153,10 +183,29 @@ function Header(props) {
     setOpenChangePass(false);
     setOpenLogIn(true);
   };
+
+  const handleClickHome = () => {
+    history('/');
+  };
+
+  const handleClickCart = () => {
+    history('/cart');
+  };
+  const handleClickPurchase = () => {
+    history('/user/purchase');
+  };
+
+  const handleClickUser = () => {
+    history('/user');
+  };
+
+  const handleClickAddress = () => {
+    history('/user/address');
+  };
   return (
     <div className='header'>
-      <div className='grid'>
-        <nav className='header__navbar'>
+      <div className='grid wide'>
+        <nav className='header__navbar hide-on-mobile-tablet'>
           <ul className='header__navbar-list'>
             <li className='header__navbar-item header__navbar-item--strong header__navbar-item--sperate '>
               Kênh Người Bán
@@ -241,16 +290,16 @@ function Header(props) {
                     </svg>
                   </div>
                 </div>
-                <span className='header__navbar-user-name'>DinhNgocThai</span>
+                <span className='header__navbar-user-name'>{loggedInUser.fullname}</span>{' '}
                 <ul className='header__navbar-user-menu'>
-                  <li className='header__navbar-user-item'>
-                    <a href='user'>Tài Khoảng của tôi</a>
+                  <li className='header__navbar-user-item' onClick={handleClickUser}>
+                    <p>Tài Khoảng của tôi</p>
                   </li>
-                  <li className='header__navbar-user-item'>
-                    <a href='/'>Đơn mua</a>
+                  <li className='header__navbar-user-item' onClick={handleClickPurchase}>
+                    <p>Đơn mua</p>
                   </li>
-                  <li className='header__navbar-user-item'>
-                    <a href='/'>Đăng xuất</a>
+                  <li className='header__navbar-user-item' onClick={handleLogout}>
+                    <p>Đăng xuất</p>
                   </li>
                 </ul>
               </li>
@@ -259,7 +308,77 @@ function Header(props) {
         </nav>
         {/* header-with-searh */}
         <div className='header-with-search'>
-          <div className='header__logo' onClick={handleClickHome}>
+          <div className='header-with-search-left'>
+            <label htmlFor='header-menu-bar'>
+              <MenuIcon className={classes.iconHeader} />
+            </label>
+            <label htmlFor='header-search-bar'>
+              <SearchIcon className={classes.iconHeader} />
+            </label>
+          </div>
+          <div className='header-with-search-left-tablet hide-on-mobile'>
+            <label htmlFor='header-menu-bar'>
+              <MenuIcon className={classes.iconHeaderTablet} />
+            </label>
+          </div>
+          {/* menu mobile */}
+
+          <input type='checkbox' id='header-menu-bar' hidden className='header__navbar-mobile-checkbox' />
+          <label htmlFor='header-menu-bar' className='header__navbar-mobile-overlay'></label>
+
+          <nav className='header__navbar-mobile'>
+            <label htmlFor='header-menu-bar' className='header__navbar-mobile-icon-exit'>
+              <CloseIcon className={classes.iconExitMobile} />
+            </label>
+            {!isLoggedIn && (
+              <>
+                <ul className='header__navbar-mobile-list'>
+                  <li className='header__navbar-mobile-item' onClick={handleClickOpenLogIn}>
+                    <ExitToAppIcon className={classes.iconMenuMobile} />
+                    Đăng nhập
+                  </li>
+                  <li className='header__navbar-mobile-item ' onClick={handleClickOpenSignUp}>
+                    <PersonAddIcon className={classes.iconMenuMobile} />
+                    Đăng ký
+                  </li>
+                </ul>
+              </>
+            )}
+            {isLoggedIn && (
+              <>
+                <div className='header__navbar-mobile-loggedIn'>
+                  <ul className='header__navbar-mobile-loggedIn-list'>
+                    <li className='header__navbar-mobile-loggedIn-item' onClick={handleClickHome}>
+                      <HomeIcon className={classes.iconMenuMobile} />
+                      Trang chủ
+                    </li>
+                    <li className='header__navbar-mobile-loggedIn-item' onClick={handleClickUser}>
+                      <PermContactCalendarIcon className={classes.iconMenuMobile} />
+                      Tài khoản của tôi
+                    </li>
+                    <li className='header__navbar-mobile-loggedIn-item' onClick={handleClickPurchase}>
+                      <ShoppingBasketIcon className={classes.iconMenuMobile} />
+                      Đơn mua
+                    </li>
+                    <li className='header__navbar-mobile-loggedIn-item' onClick={handleClickAddress}>
+                      <HomeIcon className={classes.iconMenuMobile} />
+                      Địa chỉ
+                    </li>
+                  </ul>
+                  <ul className='header__navbar-mobile-logOut-list'>
+                    <li className='header__navbar-mobile-logOut-item' onClick={handleLogout}>
+                      <ExitToAppIcon className={classes.iconMenuMobile} />
+                      Đăng xuất
+                    </li>
+                  </ul>
+                </div>
+              </>
+            )}
+          </nav>
+
+          {/* end menu mobile */}
+          <div className='header__logo hide-on-tablet ' onClick={handleClickHome}>
+            {' '}
             {/* <Link to='/' className=''> */}
             <svg viewBox='0 0 192 65' className='header__logo-img'>
               <g fillRule='evenodd'>
@@ -277,11 +396,14 @@ function Header(props) {
           <div className='header__cart'>
             <div className='header__cart-wrap' onClick={handleClickCart}>
               <ShoppingCartIcon className={classes.cart_icon} />
-              {/* <div className="header__cart-list header__cart-no-cart">
-                                <img src={no_cart} alt="" className="header__cart-img-no-cart" />
-                                <span className="header__cart-no-cart-msg">Chưa có sản phẩm</span>
-                            </div> */}
-              <span className='header__cart-notice'>{cartItemsCount}</span> <Cart />
+              {products.length === 0 && (
+                <div className='header__cart-list header__cart-no-cart'>
+                  <img src={no_cart} alt='' className='header__cart-img-no-cart' />
+                  <span className='header__cart-no-cart-msg'>Chưa có sản phẩm</span>
+                </div>
+              )}
+              <span className='header__cart-notice'>{cartItemsCount}</span>
+              {products.length !== 0 && <Cart />}
             </div>
           </div>
         </div>

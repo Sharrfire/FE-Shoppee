@@ -5,7 +5,9 @@ import LoginForm from './LoginForm';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import cartApi from '../../../api/cartApi';
+import addressApi from '../../../api/addressApi';
 import { setCart } from '../../product/components/shoppingCart/CartSlice';
+import { setAddress } from '../../user/component/AddressSlice';
 Login.propTypes = {
   closeDialog: PropTypes.func,
   openForgot: PropTypes.func,
@@ -31,13 +33,19 @@ function Login(props) {
         console.log('resultAction', resultAction);
         const user = unwrapResult(resultAction);
         console.log('user', user);
-
         //gọi api
         // const { items } = await cartApi.getAll();
         // dispath(setCart(items));
         const items = await cartApi.getAll();
         const { cartItems } = items;
         dispath(setCart(cartItems));
+
+        const items1 = await addressApi.getAll();
+        console.log('items', items1);
+        const { addressList } = items1;
+        console.log('addressList', addressList);
+        dispath(setAddress(addressList));
+
         const { closeDialog } = props;
         if (closeDialog) {
           closeDialog();
