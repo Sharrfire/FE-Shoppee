@@ -64,6 +64,7 @@ function ListProduct(props) {
       _limit: Number.parseInt(params._limit) || 15,
       brand: Number.parseInt(params.brand) || 1,
       _sortBy: params._sortBy || 'ctime',
+      // _sortBy: params._sortBy || 'ctimes',
     };
   }, [location.search]);
 

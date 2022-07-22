@@ -1,105 +1,85 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, LinearProgress, makeStyles, Typography } from '@material-ui/core';
+import { Button, makeStyles, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import InputField from '~/components/form-control/InputField';
-import PasswordField from '~/components/form-control/PasswordField';
-
+import InputField from '../../../components/form-control/InputField';
+import PasswordField from '../../../components/form-control/PasswordField';
+RegisterForm.propTypes = {
+  onSubmitRegister: PropTypes.func,
+};
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(1, 0, 1, 0),
-  },
-
-  title: {
-    display: 'flex',
-    float: 'left',
-    color: '#222',
-    padding: '15px 0px',
-  },
-  submit: {
-    // margin: theme.spacing(2, 0,1, 0)
-    color: '#fff',
-    backgroundColor: '#ee4d2d',
-    padding: '0px 10px',
-    height: '40px',
-    marginTop: '20px',
   },
   avatar: {
     margin: '0 auto',
     backgroundColor: theme.palette.secondary.main,
   },
+  title: {
+    textAlign: 'center',
+  },
+  submit: {
+    // margin: theme.spacing(2, 0,1, 0)
+  },
 }));
-
-RegisterForm.propTypes = {
-  onSubmit: PropTypes.func,
-};
-
-function RegisterForm(props) {
+function RegisterForm({ onSubmitRegister = null }) {
   const classes = useStyles();
   const schema = yup.object().shape({
-    fullName: yup
+    fullname: yup
       .string()
       .required('please enter your full name')
       .test('should has at least two words', 'please enter at least two words', (value) => {
         return value.split(' ').length >= 2;
       }),
     email: yup.string().required('please enter your email').email('please enter a valid email address'),
-    password: yup.string().required('please enter your password'),
-    // .matches(
-    //   '(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}',
-    //   'Password must contain at least 8 characters, including upper case letters, lower case letters, numbers and a special character'
-    // ),
+    password: yup
+      .string()
+      .required('please enter your password')
+      .matches
+      // '(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}',
+      // 'Password must contain at least 8 characters, including upper case letters, lower case letters, numbers and a special character',
+      (),
     repassword: yup
       .string()
       .required('please retype your password')
       .oneOf([yup.ref('password')], 'passord does not match'),
-    phone: yup.string().required('please enter your phone number').length(10, 'please enter a valid phone number'),
-    // .matches('((09|03|07|08|05)+([0-9]{8}))', 'please enter a valid phone number'),
-    address: yup.string().required('please enter your address'),
+    phone: yup
+      .string()
+      .required('please enter your phone number')
+      .length(10, 'please enter a valid phone number')
+      .matches('((09|03|07|08|05)+([0-9]{8}))', 'please enter a valid phone number'),
   });
+
   const form = useForm({
     defaultValues: {
-      fullName: '',
+      fullname: '',
       email: '',
       password: '',
       repassword: '',
       phone: '',
-      address: '',
     },
     resolver: yupResolver(schema),
   });
 
-  const handleSubmit = async (values) => {
-    const { onSubmit } = props;
-    console.log('values', values);
-    if (onSubmit) {
-      await onSubmit(values);
+  const handleSubmitRegister = async (values) => {
+    if (onSubmitRegister) {
+      await onSubmitRegister(values);
     }
-    form.reset();
   };
-  const { isSubmitting } = form.formState;
   return (
     <div className={classes.root}>
-      {isSubmitting && <LinearProgress />}
       <Typography className={classes.title} component='h3' variant='h5'>
-        Đăng ký
+        Sign Up
       </Typography>
-      <form onSubmit={form.handleSubmit(handleSubmit)}>
-        <InputField name='fullName' label='Full Name' form={form} />
-        <InputField name='email' label='Email' form={form} />
-        <PasswordField name='password' label='Password' form={form} />
-        <PasswordField name='repassword' label='Retype Password' form={form} />
-        <InputField name='phone' label='Phone Number' form={form} />
-        <InputField name='address' label='Address' form={form} />
-        <Button
-          // disabled={isSubmitting}
-          type='submit'
-          className={classes.submit}
-          variant='contained'
-          // color='primary'
-          fullWidth
-        >
+      <form onSubmit={form.handleSubmit(handleSubmitRegister)}>
+        <InputField form={form} label='Full name' name='fullname' />
+        <InputField form={form} label='Email' name='email' />
+        <PasswordField form={form} label='Password' name='password' />
+        <PasswordField form={form} label='RePassWord' name='repassword' />
+        <InputField form={form} label='Phone' name='phone' />
+        <Button type='submit' className={classes.submit} variant='contained' color='primary' fullWidth>
           Đăng ký
         </Button>
       </form>

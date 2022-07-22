@@ -9,6 +9,10 @@ import CheckOutFeature from './features/checkout/CheckOutFeature';
 import ShoppingCartFeature from './features/product/components/shoppingCart/ShoppingCartFeature';
 import ListProduct from './features/product/pages/ListProduct';
 import ProductDetail from './features/product/pages/ProductDetail';
+import Address from './features/user/component/Address';
+import EditInfo from './features/user/component/EditInfo';
+import Purchase from './features/user/component/Purchase';
+import UserFeature from './features/user/UserFeature';
 // import CheckOutFeature from './features/checkout/CheckOutFeature';
 function App() {
   return (
@@ -30,6 +34,11 @@ function App() {
         </Route>
         <Route path={`/cart`} element={<ShoppingCartFeature />} />
         <Route path={`/checkout`} element={<CheckOutFeature />} />
+        <Route path={`/user/*`} element={<UserFeature />}>
+          <Route path='' element={<EditInfo />} />
+          <Route path='address' element={<Address />} />
+          <Route path='purchase' element={<Purchase />} />
+        </Route>
       </Routes>
     </div>
   );

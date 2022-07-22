@@ -69,7 +69,7 @@ const cartSlice = createSlice({
     },
     setCart(state, action) {
       const cart = action.payload;
-      console.log({ cart });
+      // console.log({ cart });
 
       state.cartItems = cart;
 

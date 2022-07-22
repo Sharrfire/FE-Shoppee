@@ -4,7 +4,8 @@ import { login } from '../userSlice';
 import LoginForm from './LoginForm';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
-
+import cartApi from '../../../api/cartApi';
+import { setCart } from '../../product/components/shoppingCart/CartSlice';
 Login.propTypes = {
   closeDialog: PropTypes.func,
   openForgot: PropTypes.func,
@@ -34,6 +35,9 @@ function Login(props) {
         //gọi api
         // const { items } = await cartApi.getAll();
         // dispath(setCart(items));
+        const items = await cartApi.getAll();
+        const { cartItems } = items;
+        dispath(setCart(cartItems));
         const { closeDialog } = props;
         if (closeDialog) {
           closeDialog();

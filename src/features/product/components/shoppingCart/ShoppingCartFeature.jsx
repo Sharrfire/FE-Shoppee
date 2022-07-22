@@ -103,10 +103,10 @@ function ShoppingCartFeature(props) {
                 <div className='shopping__cart-footer-checkOut'>
                   <Button className={classes.btn2} onClick={handleCheckOut}>
                     Mua hàng
-                  </Button>{' '}
+                  </Button>
                 </div>
               </div>
-            </div>{' '}
+            </div>
           </div>
         </div>
       </div>

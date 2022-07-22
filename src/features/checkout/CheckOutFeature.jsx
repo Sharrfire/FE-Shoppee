@@ -8,6 +8,9 @@ import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { FormControl, RadioGroup, FormControlLabel, Radio, makeStyles, Button } from '@material-ui/core';
 import { cartTotalCountSelectors } from '../product/components/shoppingCart/selectors';
+import orderApi from '../../api/orderApi';
+import { useEffect } from 'react';
+import addressApi from '../../api/addressApi';
 CheckOutFeature.propTypes = {};
 
 const useStyle = makeStyles((theme) => ({
@@ -77,61 +80,94 @@ function CheckOutFeature(props) {
   const handleOnChange = (event) => {
     setPayment(event.target.value);
   };
+
+  // gọi api address
+  const [addressList, setAddressList] = useState([]);
+  console.log('addressList', addressList);
+  useEffect(() => {
+    (async () => {
+      try {
+        const list = await addressApi.getAll();
+        setAddressList(list);
+      } catch (error) {
+        console.log('error', error);
+      }
+    })();
+  }, []);
+  const handleNewAddress = async () => {};
+
+  const loggedInUser = useSelector((state) => state.user.current);
+  const { fullname, phone, email, address } = loggedInUser;
+  const handleSubmit = () => {
+    const data = {
+      fullname: fullname,
+      email: email,
+      address: address,
+      phone: phone,
+      cartItems: products,
+      cartTotal: cartTotal,
+      totalBill: totalBill,
+      payment: payment,
+    };
+
+    orderApi.add(data);
+  };
+
   return (
     <div>
-      <div className="checkout__content">
-        <div className="grid wide">
-          <div className="row">
-            <div className="col l-12">
-              <CheckOutAddress />
+      <div className='checkout__content'>
+        <div className='grid wide'>
+          <div className='row'>
+            <div className='col l-12'>
+              {addressList.length > 0 && <CheckOutAddress addressList={addressList} onSubmit={handleNewAddress} />}
             </div>
           </div>
-          <div className="row">
-            <div className="col l-12">
-              <div className="checkout__product">
-                <div className="checkout__product-header">
-                  <div className="checkout__product-header-label">
-                    <div className="checkout__product-header-product">
-                      <div className="checkout__product-header-product-1">Sản phẩm</div>
+          <div className='row'>
+            <div className='col l-12'>
+              <div className='checkout__product'>
+                <div className='checkout__product-header'>
+                  <div className='checkout__product-header-label'>
+                    <div className='checkout__product-header-product'>
+                      <div className='checkout__product-header-product-1'>Sản phẩm</div>
                     </div>
-                    <div className="checkout__product-header-empty"></div>
-                    <div className="checkout__product-header-price">Đơn giá</div>
-                    <div className="checkout__product-header-quantity">Số lượng</div>
-                    <div className="checkout__product-header-totalPrice">Thành tiền</div>
+                    <div className='checkout__product-header-empty'></div>
+                    <div className='checkout__product-header-price'>Đơn giá</div>
+                    <div className='checkout__product-header-quantity'>Số lượng</div>
+                    <div className='checkout__product-header-totalPrice'>Thành tiền</div>
                   </div>
                 </div>
                 <CheckOutProductList products={products} />
               </div>
             </div>
           </div>
-          <div className="row">
-            <div className="col l-12">
-              <div className="checkout__product-payment">
-                <div className="checkout__product-payment-categories">
+          <div className='row'>
+            <div className='col l-12'>
+              <div className='checkout__product-payment'>
+                <div className='checkout__product-payment-categories'>
                   <div>
-                    <div className="checkout__product-payment-setting">
-                      <div className="checkout__product-payment-setting-title">Phương thức thanh toán</div>
-                      <div className="checkout__product-payment-setting-radio">
-                        <FormControl component="fieldset">
+                    <div className='checkout__product-payment-setting'>
+                      <div className='checkout__product-payment-setting-title'>Phương thức thanh toán</div>
+                      <div className='checkout__product-payment-setting-radio'>
+                        <FormControl component='fieldset'>
                           <RadioGroup
-                            aria-label="gender"
-                            name="gender1"
+                            aria-label='gender'
+                            name='gender1'
                             value={payment}
                             className={classes.radioGroup}
                             onChange={handleOnChange}
                           >
                             <FormControlLabel
-                              value="COD"
+                              value='COD'
                               control={<Radio className={classes.radio} />}
-                              label="Thanh toán khi nhận hàng"
+                              label='Thanh toán khi nhận hàng'
                               className={classNames(classes.label, {
                                 'checkout__product-payment-selected': 'COD' === payment,
                               })}
                             />
                             <FormControlLabel
-                              value="VNPAY"
+                              value='VNPAY'
                               control={<Radio className={classes.radio} />}
-                              label="Ví VNPAY"
+                              label='Ví VNPAY'
                               className={classNames(classes.label, {
                                 'checkout__product-payment-selected': 'VNPAY' === payment,
                               })}
@@ -142,33 +178,35 @@ function CheckOutFeature(props) {
                     </div>
                   </div>
                 </div>
-                <div className="checkout__product-payment-bill">
-                  <div className="checkout__product-payment-total-label">Tổng tiền hàng</div>
-                  <div className="checkout__product-payment-total">
+                <div className='checkout__product-payment-bill'>
+                  <div className='checkout__product-payment-total-label'>Tổng tiền hàng</div>
+                  <div className='checkout__product-payment-total'>
                     {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(cartTotal)}
                   </div>
-                  <div className="checkout__product-payment-delivery-label">Phí vận chuyển</div>
-                  <div className="checkout__product-payment-delivery">
+                  <div className='checkout__product-payment-delivery-label'>Phí vận chuyển</div>
+                  <div className='checkout__product-payment-delivery'>
                     {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(20000)}
                   </div>
-                  <div className="checkout__product-payment-totalBill-label">Tổng thanh toán:</div>
-                  <div className="checkout__product-payment-totalBill">
+                  <div className='checkout__product-payment-totalBill-label'>Tổng thanh toán:</div>
+                  <div className='checkout__product-payment-totalBill'>
                     {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalBill)}
                   </div>
-                  <div className="checkout__product-payment-action">
-                    <div className="checkout__product-payment-action-lable">
-                      <div className="checkout__product-payment-action-label1">
+                  <div className='checkout__product-payment-action'>
+                    <div className='checkout__product-payment-action-lable'>
+                      <div className='checkout__product-payment-action-label1'>
                         Nhấn "Đặt hàng" đồng nghĩa với việc bạn đồng ý tuân theo{' '}
                         <a
-                          href="https://shopee.vn/legaldoc/policies/"
-                          rel="noopener noreferrer"
-                          className="checkout__product-payment-action-link"
+                          href='https://shopee.vn/legaldoc/policies/'
+                          rel='noopener noreferrer'
+                          className='checkout__product-payment-action-link'
                         >
                           Điều khoản Shopee
                         </a>
                       </div>
                     </div>
-                    <Button className={classes.btn}>Đặt hàng</Button>
+                    <Button className={classes.btn} onClick={handleSubmit}>
+                      Đặt hàng
+                    </Button>
                   </div>
                 </div>
               </div>

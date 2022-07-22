@@ -12,7 +12,6 @@ import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneO
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 // Local File
-
 import { logout } from '~/features/auth/userSlice';
 import { cartItemsCountSelectors } from '~/features/product/components/shoppingCart/selectors';
 import '../../assets/css/main.css';
@@ -23,6 +22,8 @@ import Login from '../../features/auth/login/Login';
 import Register from '../../features/auth/register/Register';
 import Cart from '../cart/Cart';
 import Search from '../search/Search';
+import { removeAll } from '../../features/product/components/shoppingCart/CartSlice';
+import cartApi from '../../api/cartApi';
 Header.propTypes = {};
 const MODE = {
   LOGIN: 'login',
@@ -61,6 +62,7 @@ const useStyle = makeStyles((theme) => ({
     color: theme.palette.grey[500],
   },
 }));
+
 function Header(props) {
   //check isLogin
   const loggedInUser = useSelector((state) => state.user.current);
@@ -68,11 +70,19 @@ function Header(props) {
 
   //logOut
   const dispatch = useDispatch();
+  const products = useSelector((state) => {
+    return state.cart.cartItems;
+  });
 
+  const data1 = JSON.parse(localStorage.getItem('cart'));
   const handleLogout = () => {
     (async () => {
       try {
+        const thai = { cartItems: data1 };
+        await cartApi.add(thai);
         const action = logout();
+        const action1 = removeAll();
+        dispatch(action1);
         dispatch(action);
       } catch (error) {
         console.log(error);
@@ -193,60 +203,58 @@ function Header(props) {
             </li>
 
             {/* chua dang nhap */}
-
-            <li
-              className='header__navbar-item header__navbar-item--strong header__navbar-item--sperate'
-              onClick={handleClickOpenSignUp}
-            >
-              Đăng ký
-            </li>
-            <li className='header__navbar-item header__navbar-item--strong' onClick={handleClickOpenLogIn}>
-              Đăng nhập
-            </li>
+            {!isLoggedIn && (
+              <>
+                <li
+                  className='header__navbar-item header__navbar-item--strong header__navbar-item--sperate'
+                  onClick={handleClickOpenSignUp}
+                >
+                  Đăng ký
+                </li>
+                <li className='header__navbar-item header__navbar-item--strong' onClick={handleClickOpenLogIn}>
+                  Đăng nhập
+                </li>
+              </>
+            )}
 
             {/* da dang nhap */}
-
-            {/* <li className="header__navbar-item header__navbar-user">
-              <div className="header__navbar-user-avatar">
-                <div className="header__navbar-user-img">
-                  <svg
-                    enable-background="new 0 0 15 15"
-                    viewBox="0 0 15 15"
-                    x="0"
-                    y="0"
-                    class="header__navbar-user-img--icon"
-                  >
-                    <g>
-                      <circle
-                        cx="7.5"
-                        cy="4.5"
-                        fill="none"
-                        r="3.8"
-                        stroke-miterlimit="10"
-                      ></circle>
-                      <path
-                        d="m1.5 14.2c0-3.3 2.7-6 6-6s6 2.7 6 6"
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-miterlimit="10"
-                      ></path>
-                    </g>
-                  </svg>
+            {isLoggedIn && (
+              <li className='header__navbar-item header__navbar-user'>
+                <div className='header__navbar-user-avatar'>
+                  <div className='header__navbar-user-img'>
+                    <svg
+                      enableBackground='new 0 0 15 15'
+                      viewBox='0 0 15 15'
+                      x='0'
+                      y='0'
+                      className='header__navbar-user-img--icon'
+                    >
+                      <g>
+                        <circle cx='7.5' cy='4.5' fill='none' r='3.8' strokeMiterlimit='10'></circle>
+                        <path
+                          d='m1.5 14.2c0-3.3 2.7-6 6-6s6 2.7 6 6'
+                          fill='none'
+                          strokeLinecap='round'
+                          strokeMiterlimit='10'
+                        ></path>
+                      </g>
+                    </svg>
+                  </div>
                 </div>
-              </div>
-              <span className="header__navbar-user-name">DaoTriThien</span>
-              <ul className="header__navbar-user-menu">
-                <li className="header__navbar-user-item">
-                  <a href="">Tài Khoảng của tôi</a>
-                </li>
-                <li className="header__navbar-user-item">
-                  <a href="">Đơn mua</a>
-                </li>
-                <li className="header__navbar-user-item">
-                  <a href="">Đăng xuất</a>
-                </li>
-              </ul>
-            </li> */}
+                <span className='header__navbar-user-name'>DinhNgocThai</span>
+                <ul className='header__navbar-user-menu'>
+                  <li className='header__navbar-user-item'>
+                    <a href='user'>Tài Khoảng của tôi</a>
+                  </li>
+                  <li className='header__navbar-user-item'>
+                    <a href='/'>Đơn mua</a>
+                  </li>
+                  <li className='header__navbar-user-item'>
+                    <a href='/'>Đăng xuất</a>
+                  </li>
+                </ul>
+              </li>
+            )}
           </ul>
         </nav>
         {/* header-with-searh */}
@@ -315,7 +323,11 @@ function Header(props) {
           <Close />
         </IconButton>
         <DialogContent>
-          <Login closeDialog={handleCloseLogIn} />{' '}
+          <Login
+            closeDialog={handleCloseLogIn}
+            openForgot={handleClickOpenForgotPass}
+            openRegister={handleClickOpenSignUp}
+          />
         </DialogContent>
       </Dialog>
       {/* end form đăng nhập */}

@@ -30,11 +30,11 @@ function ProductInfo({ product = {} }) {
   const { name, salePrice, price, quantitySold, rate, colors } = product;
   // console.log(product);
   const [product1, setProduct1] = useState(product);
-  console.log('Product1', product1);
+  // console.log('Product1', product1);
 
   const handleAddtoCart = (data) => {
     const newProduct = { ...product1 };
-    console.log(newProduct, 'Res:');
+    // console.log(newProduct, 'Res:');
 
     const res = colors.filter((colors) => colors.id === data.idc);
 
