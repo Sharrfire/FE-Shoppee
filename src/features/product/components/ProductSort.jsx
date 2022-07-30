@@ -2,7 +2,7 @@ import { ButtonBase, createTheme, makeStyles, Tab, Tabs, ThemeProvider } from '@
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import PropTypes from 'prop-types';
-
+import '~/assets/css/reponsive.css';
 ProductSort.propTypes = {
   currentSort: PropTypes.string.isRequired,
   onChange: PropTypes.func,
@@ -92,7 +92,6 @@ const theme = createTheme({
 });
 function ProductSort({ pagination = {}, currentSort, onChange, onChangePagi }) {
   const classes = useStyle();
-  // const matches = useMediaQuery('(min-width:600px)');
   //sort
   const handleSortChange = (event, newValue) => {
     if (onChange) onChange(newValue);
@@ -104,7 +103,8 @@ function ProductSort({ pagination = {}, currentSort, onChange, onChangePagi }) {
   };
   const pageCount = Math.ceil(pagination._total / pagination._limit);
   return (
-    <div className='product-sort'>
+    <div className='product-sort hide-on-mobile-tablet'>
+      {' '}
       <span className='product-sort-label'>Sắp xếp theo</span>
       <div className='product-sort__options'>
         <ThemeProvider theme={theme}>
@@ -120,7 +120,7 @@ function ProductSort({ pagination = {}, currentSort, onChange, onChangePagi }) {
           >
             <Tab label='Phổ biến' value='pop' className={classes.tab} />
             <Tab label='Bán chạy' value='sales' className={classes.tab} />
-            <Tab label='Mới nhất' value='ctime' className={classes.tab} />
+            <Tab label='Mới nhất' value='ctimes' className={classes.tab} />
             <Tab label='Giá: Thấp đến cao' value='asc' className={classes.tab} />
             <Tab label='Giá: Cao đến thấp' value='desc' className={classes.tab} />
           </Tabs>

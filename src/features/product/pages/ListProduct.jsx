@@ -9,6 +9,7 @@ import '~/assets/css/product.css';
 import ProductFilter from '../components/ProductFilter';
 import ProductList from '../components/ProductList';
 import ProductSort from '../components/ProductSort';
+import ProductSortTablet from '../components/ProductSortTablet';
 ListProduct.propTypes = {};
 
 const useStyle = makeStyles((theme) => ({
@@ -63,8 +64,8 @@ function ListProduct(props) {
       _page: Number.parseInt(params._page) || 1,
       _limit: Number.parseInt(params._limit) || 15,
       brand: Number.parseInt(params.brand) || 1,
-      _sortBy: params._sortBy || 'ctime',
-      // _sortBy: params._sortBy || 'ctimes',
+      // _sortBy: params._sortBy || 'ctime',
+      _sortBy: params._sortBy || 'ctimes',
     };
   }, [location.search]);
 
@@ -135,7 +136,13 @@ function ListProduct(props) {
   const classes = useStyle();
   return (
     <div className='app__container'>
-      <div className='grid wide content'>
+      <ProductSortTablet
+        currentSort={queryParams._sortBy}
+        onChange={handleSortChange}
+        pagination={pagination}
+        onChangePagi={handlePageChange}
+      />
+      <div className='grid wide content paddingTop'>
         <div className='row'>
           <div className='col l-2'>
             <ProductFilter filters={queryParams} onChange={handleFilterChange} />

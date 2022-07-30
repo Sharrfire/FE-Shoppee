@@ -6,6 +6,8 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import AddToCartForm from './AddToCartForm';
 import { addToCart } from './shoppingCart/CartSlice';
+import { useSnackbar } from 'notistack';
+import AddToCartFormMobile from './AddToCartFormMobile';
 ProductInfo.propTypes = {
   product: PropTypes.object,
 };
@@ -24,20 +26,17 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 function ProductInfo({ product = {} }) {
+  const { enqueueSnackbar } = useSnackbar();
   const classes = useStyle();
   const dispatch = useDispatch();
-  // const { name, salePrice, price, rate, colors } = product;
   const { name, salePrice, price, quantitySold, rate, colors } = product;
-  // console.log(product);
-  const [product1, setProduct1] = useState(product);
-  // console.log('Product1', product1);
+  const [product1] = useState(product);
 
   const handleAddtoCart = (data) => {
     const newProduct = { ...product1 };
     // console.log(newProduct, 'Res:');
 
-    const res = colors.filter((colors) => colors.id === data.idc);
-
+    const res = colors.find((colors) => colors.id === data.idc);
     newProduct.colors = res;
     const action = addToCart({
       idp: product.id,
@@ -46,7 +45,7 @@ function ProductInfo({ product = {} }) {
       quantity: data.quantity,
     });
     dispatch(action);
-    // console.log(action, 'Action:');
+    enqueueSnackbar('bạn đã thêm sản phẩm vào giỏ hàng', { variant: 'success' });
   };
 
   return (
@@ -184,6 +183,9 @@ function ProductInfo({ product = {} }) {
         </div>
         <div className='product__action'>
           <AddToCartForm colors={colors} onSubmit={handleAddtoCart} />
+        </div>
+        <div className='product__action-mobile'>
+          <AddToCartFormMobile colors={colors} onSubmit={handleAddtoCart} />
         </div>
         <div className='product__more'>
           <div className='product__more-1'>

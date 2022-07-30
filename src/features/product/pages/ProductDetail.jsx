@@ -108,7 +108,7 @@ function ProductDetail(props) {
                 Shopee
               </Link>
               <Typography color='textPrimary' className={classes.path}>
-                {product.name}{' '}
+                {product.name}
               </Typography>
             </Breadcrumbs>
           </div>

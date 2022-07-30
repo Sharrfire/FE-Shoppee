@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import CheckOutProduct from './CheckOutProduct';
 import { useSelector } from 'react-redux';
 import { cartTotalCountSelectors } from '../product/components/shoppingCart/selectors';
+import CheckOutProductMobile from './CheckOutProductMobile';
 CheckOutProductList.propTypes = {
   products: PropTypes.array,
 };
@@ -14,21 +15,26 @@ CheckOutProductList.defaulProps = {
 function CheckOutProductList({ products }) {
   const cartTotal = useSelector(cartTotalCountSelectors);
   return (
-    <div className="checkout__product-main">
+    <div className='checkout__product-main'>
       <div>
-        <div className="checkout__product-list">
-          <div className="checkout__product-list-item">
+        <div className='checkout__product-list'>
+          <div className='checkout__product-list-item'>
             {products.map((product) => (
               <div key={(product.idc, product.idp)}>
-                <CheckOutProduct product={product} />
+                <div className='hide-on-mobile'>
+                  <CheckOutProduct product={product} />
+                </div>
+                <div>
+                  <CheckOutProductMobile product={product} />
+                </div>
               </div>
             ))}
           </div>
         </div>
       </div>
-      <div className="checkout__product-total-price">
-        <div className="checkout__product-total-price-label">Tổng số tiền:</div>
-        <div className="checkout__product-total-price-number">
+      <div className='checkout__product-total-price'>
+        <div className='checkout__product-total-price-label'>Tổng số tiền:</div>
+        <div className='checkout__product-total-price-number'>
           {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(cartTotal)}
         </div>
       </div>

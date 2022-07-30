@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 function DeliveryAddressMobileList({ addressList, addressChecked = {}, onChange = null, onClickChange = null }) {
   const classes = useStyles();
   const [value, setValue] = useState(addressChecked);
-  const history = useNavigate();
+
   const handleChange = (address) => {
     setValue(address);
     const state = true;
@@ -66,6 +66,7 @@ function DeliveryAddressMobileList({ addressList, addressChecked = {}, onChange 
       onClickChange(state);
     }
   };
+  const history = useNavigate();
 
   const handleSettingAddress = () => {
     history('user/address');
