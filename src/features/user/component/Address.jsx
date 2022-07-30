@@ -43,9 +43,11 @@ function Address(props) {
   const handleClickOpen = () => {
     setOpen(true);
   };
-
-  const handleClose = () => {
+  const handleClose = (event, reason) => {
     setOpen(false);
+    if (reason !== 'backdropClick' && reason !== 'escapeKeyDown') {
+      setOpen(false);
+    }
   };
   // end dialog
 
@@ -73,14 +75,7 @@ function Address(props) {
       <div>
         <AddressList addressList={addressList} />
       </div>
-      <Dialog
-        fullScreen={fullScreen}
-        open={open}
-        onClose={handleClose}
-        disableBackdropClick
-        disableEscapeKeyDown
-        aria-labelledby='responsive-dialog-title'
-      >
+      <Dialog fullScreen={fullScreen} open={open} onClose={handleClose} aria-labelledby='responsive-dialog-title'>
         <DialogContent>
           <NewAddress closeDialog={handleClose} />
         </DialogContent>

@@ -133,8 +133,11 @@ function DeliveryAddressList({ addressList, addressChecked = {}, onChange = null
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = (reason) => {
     setOpen(false);
+    if (reason !== 'backdropClick' && reason !== 'escapeKeyDown') {
+      setOpen(false);
+    }
   };
   // end dialog
   return (
@@ -186,14 +189,7 @@ function DeliveryAddressList({ addressList, addressChecked = {}, onChange = null
           </div>
         </div>
       </div>
-      <Dialog
-        fullScreen={fullScreen}
-        open={open}
-        onClose={handleClose}
-        disableBackdropClick
-        disableEscapeKeyDown
-        aria-labelledby='responsive-dialog-title'
-      >
+      <Dialog fullScreen={fullScreen} open={open} onClose={handleClose} aria-labelledby='responsive-dialog-title'>
         <DialogContent>
           <NewAddressCheckOut closeDialog={handleClose} />
         </DialogContent>

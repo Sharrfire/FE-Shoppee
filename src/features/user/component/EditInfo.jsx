@@ -1,12 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import InputField from '../../../components/form-control/InputField';
-import { Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
+import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import * as yup from 'yup';
+import InputField from '../../../components/form-control/InputField';
 EditInfo.propTypes = {};
 const useStyles = makeStyles((theme) => ({
   btn: {
@@ -58,6 +56,10 @@ function EditInfo(props) {
     console.log(data);
   };
 
+  const isLoggedIn = !!loggedInUser.id;
+  if (!isLoggedIn) {
+    return <Navigate to='/' />;
+  }
   return (
     <div className='user__info'>
       <div className='user__info-header'>

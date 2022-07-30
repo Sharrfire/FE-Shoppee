@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { Button, Dialog, DialogContent, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
+import { useSnackbar } from 'notistack';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { removeAddress, setStatusAddress } from './AddressSlice';
 import EditAddress from './EditAddress';
-import addressApi from '../../../api/addressApi';
-
 AddressDetail.propTypes = {
   address: PropTypes.object,
-  onSubmitEdit: PropTypes.func,
-  onSubmitDefault: PropTypes.func,
-  onSubmitDelete: PropTypes.func,
 };
 const useStyles = makeStyles((theme) => ({
   btnSave: {
@@ -56,7 +54,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-function AddressDetail({ address = {}, onSubmitEdit = null, onSubmitDefault = null, onSubmitDelete = null }) {
+function AddressDetail({ address = {} }) {
+  const { enqueueSnackbar } = useSnackbar();
   // dialog
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -66,63 +65,61 @@ function AddressDetail({ address = {}, onSubmitEdit = null, onSubmitDefault = nu
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = (event, reason) => {
     setOpen(false);
+    if (reason !== 'backdropClick' && reason !== 'escapeKeyDown') {
+      setOpen(false);
+    }
   };
   // end dialog
   const { name, phone, status } = address;
   const classes = useStyles();
-
-  const handleEditAddress = async (data) => {
-    console.log('data3', data);
-    if (onSubmitEdit) onSubmitEdit(data);
-  };
-
-  const data1 = {
-    status: 'true',
-    id: address.id,
-  };
+  const dispatch = useDispatch();
 
   const handleAddressDefault = () => {
-    console.log('data', data1);
-    if (onSubmitDefault) {
-      onSubmitDefault(data1);
-    }
+    const action = setStatusAddress({
+      id: address.id,
+      status: true,
+    });
+    dispatch(action);
+    enqueueSnackbar('bạn đã đặt mặc định cho địa chỉ', { variant: 'success' });
   };
 
   const handleDeleteAddress = () => {
-    if (onSubmitDelete) {
-      onSubmitDelete(address.id);
-    }
+    const action = removeAddress({
+      id: address.id,
+    });
+    dispatch(action);
+    enqueueSnackbar('bạn đã xóa địa chỉ', { variant: 'error' });
   };
   return (
-    <div className="user__address-content">
+    <div className='user__address-content'>
       <div></div>
-      <div className="user__address-content-left">
-        <div className="user__address-name">
-          <div className="user__address-label">Họ và tên</div>
-          <div className="user__address-contentDetail">
-            <span className="user__address-contentDetail-text">{name}</span>
+      <div className='user__address-content-left' onClick={handleClickOpen}>
+        <div className='user__address-name'>
+          <div className='user__address-label'>Họ và tên</div>
+          <div className='user__address-contentDetail'>
+            <span className='user__address-contentDetail-text'>{name}</span>
             {status === true && (
               <>
-                <div className="user__address-contentDetail-default">Mặc định</div>
+                <div className='user__address-contentDetail-default'>Mặc định</div>
               </>
             )}
           </div>
         </div>
-        <div className="user__address-phone">
-          <div className="user__address-label">Số điện thoại</div>
-          <div className="user__address-contentDetail">{phone}</div>
+        <div className='user__address-phone'>
+          <div className='user__address-label'>Số điện thoại</div>
+          <div className='user__address-contentDetail'>{phone}</div>
         </div>
-        <div className="user__address-address">
-          <div className="user__address-label">Địa chỉ</div>
-          <div className="user__address-contentDetail">
+        <div className='user__address-address'>
+          <div className='user__address-label'>Địa chỉ</div>
+          <div className='user__address-contentDetail'>
             <span>{address.address}</span>
           </div>
         </div>
       </div>
-      <div className="user__address-content-buttons">
-        <div className="user__address-btn">
+      <div className='user__address-content-buttons hide-on-mobile'>
+        <div className='user__address-btn'>
           <Button className={classes.btnSave} onClick={handleClickOpen}>
             Sửa
           </Button>
@@ -134,7 +131,7 @@ function AddressDetail({ address = {}, onSubmitEdit = null, onSubmitDefault = nu
             </>
           )}
         </div>
-        <div className="user__address-btn">
+        <div className='user__address-btn'>
           {status === true && (
             <Button className={classes.btnSetDefault} disabled>
               Thiết lập mặc định
@@ -147,16 +144,9 @@ function AddressDetail({ address = {}, onSubmitEdit = null, onSubmitDefault = nu
           )}
         </div>
       </div>
-      <Dialog
-        fullScreen={fullScreen}
-        open={open}
-        onClose={handleClose}
-        disableBackdropClick
-        disableEscapeKeyDown
-        aria-labelledby="responsive-dialog-title"
-      >
+      <Dialog fullScreen={fullScreen} open={open} onClose={handleClose} aria-labelledby='responsive-dialog-title'>
         <DialogContent>
-          <EditAddress closeDialog={handleClose} address={address} onSubmitEdit={handleEditAddress} />
+          <EditAddress closeDialog={handleClose} address={address} id={address.id} />
         </DialogContent>
       </Dialog>
     </div>

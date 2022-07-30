@@ -90,7 +90,8 @@ function ProductDetail(props) {
 
   const { product, loading } = useProductDetail(productId);
   const [value, setValue] = useState();
-
+  console.log('Pre value', value);
+  console.log('Pre loading', loading);
   useEffect(() => {
     setValue(product);
   }, [product]);

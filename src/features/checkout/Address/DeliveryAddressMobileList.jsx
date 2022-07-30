@@ -81,8 +81,11 @@ function DeliveryAddressMobileList({ addressList, addressChecked = {}, onChange 
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = (event, reason) => {
     setOpen(false);
+    if (reason !== 'backdropClick' && reason !== 'escapeKeyDown') {
+      setOpen(false);
+    }
   };
   // end dialog
   return (
@@ -120,14 +123,7 @@ function DeliveryAddressMobileList({ addressList, addressChecked = {}, onChange 
           Thêm địa chỉ mới
         </Button>
       </div>
-      <Dialog
-        fullScreen={fullScreen}
-        open={open}
-        onClose={handleClose}
-        disableBackdropClick
-        disableEscapeKeyDown
-        aria-labelledby='responsive-dialog-title'
-      >
+      <Dialog fullScreen={fullScreen} open={open} onClose={handleClose} aria-labelledby='responsive-dialog-title'>
         <DialogContent>
           <NewAddressCheckOut closeDialog={handleClose} />
         </DialogContent>

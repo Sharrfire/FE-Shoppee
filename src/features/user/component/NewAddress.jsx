@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import NewAddressForm from './NewAddressForm';
-import addressApi from '../../../api/addressApi';
+import addressApi from '~/api/addressApi';
 NewAddress.propTypes = {
   closeDialog: PropTypes.func,
   onSubmitNew: PropTypes.func,
@@ -9,10 +9,11 @@ NewAddress.propTypes = {
 
 function NewAddress({ closeDialog = null, onSubmitNew = null }) {
   const handleNewAddress = async (data) => {
-    console.log('data', data);
     try {
       const res = await addressApi.add(data);
       onSubmitNew(res);
+      console.log('data at new address', data);
+
       if (closeDialog) {
         closeDialog();
       }

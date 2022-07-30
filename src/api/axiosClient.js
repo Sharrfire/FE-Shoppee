@@ -36,7 +36,7 @@ axiosClient.interceptors.response.use(
     // Do something with response error
     if (error.response && error.response.status === 401) {
       console.log('token expire');
-      window.location = '/auth/login';
+      window.location = '/home';
     }
     // console.log('loi email',error.response.data.message);
     const { config, status, data } = error.response;

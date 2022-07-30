@@ -140,6 +140,8 @@ function NewAddressForm({ onSubmitNew = null, closeDialog = null }) {
       address: values.address,
       status: checked,
     };
+    console.log(data);
+
     if (onSubmitNew) {
       await onSubmitNew(data);
     }
@@ -147,19 +149,19 @@ function NewAddressForm({ onSubmitNew = null, closeDialog = null }) {
 
   return (
     <Box className={classes.root}>
-      <Typography className={classes.title} component="h3" variant="h4">
+      <Typography className={classes.title} component='h3' variant='h4'>
         Địa chỉ mới
       </Typography>
       <form onSubmit={form.handleSubmit(handleSubmitNewAddress)}>
         <Box className={classes.box1}>
-          <InputField name="name" placeholder="Họ và tên" form={form} />
-          <InputField name="phone" placeholder="Số điện thoại" form={form} />
+          <InputField name='name' placeholder='Họ và tên' form={form} />
+          <InputField name='phone' placeholder='Số điện thoại' form={form} />
         </Box>
-        <InputField name="address" placeholder="Địa chỉ" form={form} />
+        <InputField name='address' placeholder='Địa chỉ' form={form} />
         <Box className={classes.box3}>
           <FormControlLabel
             control={<Checkbox checked={checked} onChange={handleChange} className={classes.checkbox} />}
-            label="Đặt làm địa chỉ mặt định"
+            label='Đặt làm địa chỉ mặt định'
             className={classes.formCtrol}
           />
         </Box>
@@ -167,7 +169,7 @@ function NewAddressForm({ onSubmitNew = null, closeDialog = null }) {
           <Button className={classes.back} onClick={handleClose}>
             Trở lại
           </Button>
-          <Button className={classes.submit} type="submit">
+          <Button className={classes.submit} type='submit'>
             Hoàn thành
           </Button>
         </Box>
