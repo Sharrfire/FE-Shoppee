@@ -7,7 +7,7 @@ const productApi = {
   },
   search(params) {
     const url = `/api/products?${params}`;
-    return axiosClient.get(url);
+    return axiosClient.get(url, { params });
   },
   get(id) {
     const url = `/api/product?id=${id}`;

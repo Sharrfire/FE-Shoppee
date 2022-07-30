@@ -19,7 +19,6 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 // Local File
-import { logout } from '~/features/auth/userSlice';
 import { cartItemsCountSelectors } from '~/features/product/components/shoppingCart/selectors';
 import addressApi from '~/api/addressApi';
 import '~/assets/css/main.css';
@@ -34,6 +33,7 @@ import { removeAll } from '~/features/product/components/shoppingCart/CartSlice'
 import { removeAllAddress } from '~/features/user/component/AddressSlice';
 import Cart from '../cart/Cart';
 import Search from '../search/Search';
+import { logout } from '~/features/auth/userSlice';
 Header.propTypes = {};
 const MODE = {
   LOGIN: 'login',
@@ -106,20 +106,19 @@ function Header(props) {
   });
   const data2 = JSON.parse(localStorage.getItem('address'));
   const data1 = JSON.parse(localStorage.getItem('cart'));
+  console.log('data1', data1);
   console.log('data2', data2);
   const handleLogout = () => {
     (async () => {
       try {
-        // const thien = { cartItems: data1 };
-        const thai1 = { addressList: data2 };
-        // await cartApi.add(thien);
-        await addressApi.add(thai1);
+        const thai = { addressList: data2 };
+        await addressApi.add(thai);
         const action = logout();
         const action1 = removeAll();
         const action2 = removeAllAddress();
-        dispatch(action);
-        dispatch(action1);
         dispatch(action2);
+        dispatch(action1);
+        dispatch(action);
       } catch (error) {
         console.log(error);
       }

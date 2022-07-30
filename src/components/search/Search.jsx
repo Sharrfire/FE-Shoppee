@@ -1,9 +1,14 @@
-import { Button, makeStyles } from '@material-ui/core';
-import CheckIcon from '@material-ui/icons/Check';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Button, makeStyles } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import CheckIcon from '@material-ui/icons/Check';
 import classNames from 'classnames';
-import '../../assets/css/main.css';
+import productApi from '../../api/productApi';
+import queryString from 'query-string';
+import InputForm from './InputForm';
+import ProductsSearch from './ProductsSearch';
 Search.propTypes = {};
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -37,36 +42,73 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.4rem',
     display: 'none',
   },
-  checked: {},
 }));
 function Search(props) {
   const classes = useStyles();
-  return (
-    <div className='header__search'>
-      <div className='header__search-input-wrap'>
-        <input type='text' placeholder='Tìm kiếm' className='header__search-input' />
+  const [productList, setProductList] = useState([]);
+  const [viewProducts, setViewProduct] = useState(false);
+  // const [pagination, setPagination] = useState({
+  //   limit: 5,
+  //   total: 5,
+  //   page: 1,
+  // });
 
+  const [filters, setFilters] = useState({
+    _limit: 5,
+    _page: 1,
+  });
+  console.log('filters', filters);
+  useEffect(() => {
+    (async () => {
+      try {
+        const paramsString = queryString.stringify(filters);
+
+        const res = await productApi.search(paramsString);
+        const { products } = res;
+        setProductList(products);
+        // setPagination(pagination);
+      } catch (error) {
+        console.log('error', error);
+      }
+    })();
+  }, [filters]);
+
+  const handleFiltersChange = (newFilters) => {
+    console.log('newFilters', newFilters);
+    if (newFilters.searchTerm === '') {
+      setFilters({
+        _page: 1,
+        _limit: 5,
+      });
+    } else {
+      setFilters({
+        ...filters,
+        _page: 1,
+        title_like: newFilters.searchTerm,
+      });
+    }
+  };
+
+  const handleChangeVPOpen = () => {
+    setViewProduct(true);
+  };
+  const handleChangeVPClose = () => {
+    setViewProduct(false);
+  };
+  return (
+    <div className='header__search '>
+      <div className='header__search-input-wrap'>
+        <InputForm onsubmit={handleFiltersChange} changeVPO={handleChangeVPOpen} changeVPC={handleChangeVPClose} />
         {/* search history */}
-        <div className='header__search-history'>
-          <h3 className='header__search-history-title'>Lịch sử tìm kiếm</h3>
-          <ul className='header__search-history-list'>
-            <li className='header__search-history-item'>
-              <a href='/'>Dầu gội đầu</a>
-            </li>
-            <li className='header__search-history-item'>
-              <a href='/'>Dầu gội đầu</a>
-            </li>
-          </ul>
-        </div>
+        {viewProducts && <ProductsSearch products={productList} />}
       </div>
-      <div className='header__search-select'>
+      <div className='header__search-select hide-on-mobile'>
         <span className='header__search-select-label'>Trong Shop</span>
         <ExpandMoreIcon className={classes.icon} />
 
         <ul className='header__search-option'>
           <li className='header__search-option-item header__search-option-item-active'>
             <span>Trong Shop</span>
-            {/* <CheckIcon className={classes.check_icon + classes.checked} /> */}
             <CheckIcon className={(classes.check_icon, classNames('checked'))} />
           </li>
           <li className='header__search-option-item'>

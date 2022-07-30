@@ -15,17 +15,36 @@ function InputField(props) {
   const { errors } = form;
   const hasError = errors[name];
   return (
+    // <Controller
+    //   name={name}
+    //   control={form.control}
+    //   as={TextField}
+    //   margin='normal'
+    //   variant='outlined'
+    //   fullWidth
+    //   label={label}
+    //   disabled={disabled}
+    //   error={!!hasError}
+    //   helperText={errors[name]?.message}
+    // />
     <Controller
       name={name}
       control={form.control}
-      as={TextField}
-      margin='normal'
-      variant='outlined'
-      fullWidth
-      label={label}
-      disabled={disabled}
-      error={!!hasError}
-      helperText={errors[name]?.message}
+      render={({ onChange, onBlur, value, name }) => (
+        <TextField
+          label={label}
+          margin='normal'
+          variant='outlined'
+          fullWidth
+          disabled={disabled}
+          error={!!hasError}
+          helperText={errors[name]?.message}
+          name={name}
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+        />
+      )}
     />
   );
 }
