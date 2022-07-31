@@ -84,7 +84,7 @@ function Comment({ id }) {
         console.log('failed', error);
       }
     })();
-  }, [queryParams]);
+  }, [queryParams, id]);
 
   //handle pagination
   const handlePageChange = (e, page) => {

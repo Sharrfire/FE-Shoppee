@@ -7,10 +7,9 @@ PurchaseFilterItem.propTypes = {
   onChange: PropTypes.func,
   active: PropTypes.number,
 };
-PurchaseFilterItem.defaultProps = {
-  values: [],
-};
-function PurchaseFilterItem({ values, onChange = null, active }) {
+
+function PurchaseFilterItem({ values = [], onChange = null, active }) {
+  // console.log('values: ', values);
   const handleChange = (value) => {
     if (onChange) {
       onChange(value.id);

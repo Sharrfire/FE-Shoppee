@@ -86,7 +86,7 @@ const useStyle = makeStyles((theme) => ({
 }));
 function PurchaseItem({ purchase = {}, onSubmitComment = null, onClick = null }) {
   const { cartItems, totalBill, status, id } = purchase;
-  console.log('cartItems: ', purchase.cartItems);
+  // console.log('cartItems: ', purchase.cartItems);
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
 

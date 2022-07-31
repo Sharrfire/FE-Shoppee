@@ -45,14 +45,14 @@ function Purchase(props) {
     _total: 10,
     _page: 1,
   });
-  console.log(pagination);
+  // console.log(pagination);
 
   useEffect(() => {
     (async () => {
       try {
         const params2 = { ...queryParams };
         const list = await purchaseApi.getAll(params2);
-        console.log(list);
+        // console.log(list);
         const { data, pagination } = list;
 
         setPurchaseList(data);
@@ -73,7 +73,7 @@ function Purchase(props) {
       ...newFilter,
     };
     history({
-      pathName: history.location.pathName,
+      pathName: location.pathName,
       search: queryString.stringify(filters),
     });
   };

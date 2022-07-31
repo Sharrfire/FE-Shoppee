@@ -9,7 +9,8 @@ PurchaseFilter.propTypes = {
   filters: PropTypes.object.isRequired,
 };
 
-function PurchaseFilter({ filters, onChange = null }) {
+function PurchaseFilter({ filters = {}, onChange = null, currentFillter = {} }) {
+  // console.log('filters at purchase filter: ', filters);
   const [active, setactive] = useState(filters.status);
   const [values, setValues] = useState();
 
@@ -33,11 +34,12 @@ function PurchaseFilter({ filters, onChange = null }) {
     };
 
     onChange(newFilters);
-    setactive(newStatusId);
+    setactive(newFilters.status);
+    console.log('filter status: ', filters);
   };
 
   return (
-    <div className="purchase__filter">
+    <div className='purchase__filter'>
       <PurchaseFilterItem values={values} onChange={handleStatusChange} active={active} />
     </div>
   );
