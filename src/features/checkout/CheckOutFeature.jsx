@@ -85,7 +85,7 @@ function CheckOutFeature(props) {
 
   // conver array to object
   const checked = addressList.find((address) => address.status === true);
-  const [addressChecked, setAddressChecked] = useState(checked);
+  const [addressChecked, setAddressChecked] = useState(checked || 'Đồng Nai');
 
   const handleChangeAddress = (value) => {
     setAddressChecked(value);
@@ -93,19 +93,21 @@ function CheckOutFeature(props) {
   // end conver array to object
 
   const loggedInUser = useSelector((state) => state.user.current);
-  const { email } = loggedInUser;
+  console.log(loggedInUser);
+  const { fullname, email, address } = loggedInUser;
+
   const handleSubmit = () => {
     const data = {
-      fullname: addressChecked.name,
+      fullname: fullname,
       email: email,
-      address: addressChecked.address,
-      phone: addressChecked.phone,
+      address: address || 'Đồng Nai',
+      phone: loggedInUser.phone,
       cartItems: products,
       cartTotal: cartTotal,
       totalBill: totalBill,
       payment: payment,
     };
-    // console.log('data', data);
+    console.log('data', data);
     orderApi.add(data);
     enqueueSnackbar('bạn đã đặt mua đơn hàng', { variant: 'success' });
   };
@@ -126,7 +128,7 @@ function CheckOutFeature(props) {
               {addressList.length > 0 && (
                 <CheckOutAddress
                   addressList={addressList}
-                  addressChecked={addressChecked}
+                  addressChecked={addressChecked || 'Đồng Nai'}
                   onChange={handleChangeAddress}
                   view1={view1}
                   onClickChange1={handleChangeView1}

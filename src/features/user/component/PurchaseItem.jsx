@@ -86,6 +86,7 @@ const useStyle = makeStyles((theme) => ({
 }));
 function PurchaseItem({ purchase = {}, onSubmitComment = null, onClick = null }) {
   const { cartItems, totalBill, status, id } = purchase;
+  console.log('cartItems: ', purchase.cartItems);
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
 
@@ -171,14 +172,16 @@ function PurchaseItem({ purchase = {}, onSubmitComment = null, onClick = null })
             <div className='purchase__item-order-item'>
               <div>
                 {/* item */}
-                {cartItems.map((cartItem) => (
-                  <span className='order-item'>
+                {cartItems.map((cartItem, index) => (
+                  <div className='order-item' key={index}>
                     <div className='order-item-detail'>
                       <img src={cartItem.newProduct.images[0].path} className='order-item-img' alt='' />
                       <div className='order-item-info'>
                         <div className='oroder-item-name'>{cartItem.newProduct.name}</div>
                         <div>
-                          <div className='order-item-type'>Phân loại hàng: {cartItem.newProduct.colors.colorName}</div>
+                          <div className='order-item-type'>
+                            Phân loại hàng: {cartItem.newProduct.colors.colorName || ''}
+                          </div>
                           <div className='order-item-quantity'>x{cartItem.quantity}</div>
                         </div>
                       </div>
@@ -191,7 +194,7 @@ function PurchaseItem({ purchase = {}, onSubmitComment = null, onClick = null })
                         }).format(cartItem.newProduct.salePrice * cartItem.quantity)}
                       </span>
                     </div>
-                  </span>
+                  </div>
                 ))}
                 {/* end item */}
               </div>

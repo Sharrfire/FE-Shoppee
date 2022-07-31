@@ -7,6 +7,8 @@ import { setCart } from '../../product/components/shoppingCart/CartSlice';
 import { setAddress } from '../../user/component/AddressSlice';
 import { login } from '../userSlice';
 import LoginForm from './LoginForm';
+import { useSnackbar } from 'notistack';
+
 Login.propTypes = {
   closeDialog: PropTypes.func,
   openForgot: PropTypes.func,
@@ -14,6 +16,8 @@ Login.propTypes = {
 };
 
 function Login(props) {
+  const { enqueueSnackbar } = useSnackbar();
+
   const oncloseLogin = (value) => {
     const open = props.openForgot;
     open();
@@ -49,9 +53,9 @@ function Login(props) {
           closeDialog();
         }
 
-        // enqueueSnackbar('login successfully', { variant: 'success' });
+        enqueueSnackbar('Đăng nhập thành công', { variant: 'success' });
       } catch (error) {
-        // enqueueSnackbar(error.message, { variant: 'error' });
+        enqueueSnackbar('Sai tên đăng nhập hoặc mật khẩu', { variant: 'error' });
       }
     })();
   };

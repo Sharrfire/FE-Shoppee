@@ -6,6 +6,9 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import InputField from '../../../components/form-control/InputField';
 import PasswordField from '../../../components/form-control/PasswordField';
+import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 RegisterForm.propTypes = {
   onSubmitRegister: PropTypes.func,
 };

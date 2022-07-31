@@ -39,16 +39,12 @@ const useStyle = makeStyles((theme) => ({
     margin: '15px 15px 15px 0px',
   },
 }));
-function AddToCartFormMobile({ colors, onSubmit = null }) {
+function AddToCartFormMobile({ colors = [], onSubmit = null }) {
   const [active, setActive] = useState(0);
 
   const classes = useStyle();
   const schema = yup.object().shape({
-    quantity: yup
-      .number()
-      .required('làm ơn nhập')
-      .min(1, 'Tối thiểu là 1 sản phẩm')
-      .typeError('Làm ơn nhập số'),
+    quantity: yup.number().required('làm ơn nhập').min(1, 'Tối thiểu là 1 sản phẩm').typeError('Làm ơn nhập số'),
   });
   const form = useForm({
     defaultValues: {
@@ -77,44 +73,44 @@ function AddToCartFormMobile({ colors, onSubmit = null }) {
   return (
     <div>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
-        <div className="addToCart__btn-mobile">
-          <label htmlFor="addToCart-btn" className="addToCart__btn-mobile-btn1">
+        <div className='addToCart__btn-mobile'>
+          <label htmlFor='addToCart-btn' className='addToCart__btn-mobile-btn1'>
             <AddShoppingCartIcon className={classes.icon} />
           </label>
-          <label htmlFor="addToCart-btn" className="addToCart__btn-mobile-btn2">
+          <label htmlFor='addToCart-btn' className='addToCart__btn-mobile-btn2'>
             Mua ngay
           </label>
         </div>
-        <input type="checkbox" id="addToCart-btn" hidden className="addToCart__checkbox" />
-        <label htmlFor="addToCart-btn" className="addToCart__overlay"></label>
-        <div className="addToCart__options-mobile">
-          <label htmlFor="addToCart-btn" className="addToCart__-icon-exit">
+        <input type='checkbox' id='addToCart-btn' hidden className='addToCart__checkbox' />
+        <label htmlFor='addToCart-btn' className='addToCart__overlay'></label>
+        <div className='addToCart__options-mobile'>
+          <label htmlFor='addToCart-btn' className='addToCart__-icon-exit'>
             <CloseIcon className={classes.iconExitMobile} />
           </label>
-          <div className="product__type">
-            <label className="product__type-label">Màu sắc</label>
-            <ul className="product__type-list">
+          <div className='product__type'>
+            <label className='product__type-label'>Màu sắc</label>
+            <ul className='product__type-list'>
               {colors.map((color) => (
                 <li
                   key={color.id}
-                  name="type"
+                  name='type'
                   className={classNames('product__type-item', {
                     'product__type-active': color.id === active,
                   })}
                   onClick={() => setActive(color.id)}
                 >
-                  {color.colorName}
+                  {color.colorName || ''}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="quantity__form-control">
-            <label htmlFor="quantity" className="quantity__form-label">
+          <div className='quantity__form-control'>
+            <label htmlFor='quantity' className='quantity__form-label'>
               Số lượng
             </label>
-            <QuantityField name="quantity" id="quantity" form={form} />
+            <QuantityField name='quantity' id='quantity' form={form} />
           </div>
-          <Button className={classes.btn2} fullWidth type="submit">
+          <Button className={classes.btn2} fullWidth type='submit'>
             Thêm mới
           </Button>
         </div>

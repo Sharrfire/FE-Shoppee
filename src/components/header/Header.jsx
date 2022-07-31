@@ -106,8 +106,8 @@ function Header(props) {
   });
   const data2 = JSON.parse(localStorage.getItem('address'));
   const data1 = JSON.parse(localStorage.getItem('cart'));
-  console.log('data1', data1);
-  console.log('data2', data2);
+  // console.log('data1', data1);
+  // console.log('data2', data2);
   const handleLogout = () => {
     (async () => {
       try {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RegisterForm from './RegisterForm';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../userSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 
@@ -14,11 +14,11 @@ function Register({ closeDialog }) {
   const handleSubmitRegister = async (values) => {
     try {
       const action = register(values);
-      console.log('action', action);
+      // console.log('action', action);
       const resultAction = await dispath(action);
-      console.log('resultAction', resultAction);
+      // console.log('resultAction', resultAction);
       const user = unwrapResult(resultAction);
-      console.log('user', user);
+      // console.log('user', user);
       if (closeDialog) {
         closeDialog();
       }

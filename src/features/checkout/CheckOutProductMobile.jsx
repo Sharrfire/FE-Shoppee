@@ -15,7 +15,7 @@ function CheckOutProductMobile({ product = {} }) {
       <div className='checkout___product-mobile-info'>
         <div className='checkout___product-mobile-name'>
           <div className='checkout___product-mobile-name1'>{newProduct.name}</div>
-          <div className='checkout___product-mobile-type'>Loại: {newProduct.colors.colorName}</div>
+          <div className='checkout___product-mobile-type'>Loại: {newProduct.colors.colorName || ''}</div>
         </div>
         <div className='checkout___product-mobile-more'>
           <div className='checkout___product-mobile-price'>

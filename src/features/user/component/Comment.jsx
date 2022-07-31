@@ -104,7 +104,7 @@ function Comment({ form = {}, cartItem = {}, index }) {
           </div>
           <div className='comment__main-product-info'>
             <div className='comment__main-product-name'>{newProduct.name}</div>
-            <div className='comment__main-product-type'>Phân loại hàng: {newProduct.colors.colorName}</div>
+            <div className='comment__main-product-type'>Phân loại hàng: {newProduct.colors.colorName || ''}</div>
           </div>
         </Link>
 

@@ -32,11 +32,11 @@ function InputForm({ onsubmit = null, changeVPO = null, changeVPC = null }) {
   };
 
   return (
-    <form className="header__search-form">
+    <form className='header__search-form'>
       <input
-        type="text"
-        placeholder="Tìm kiếm"
-        className="header__search-input"
+        type='text'
+        placeholder='Tìm kiếm'
+        className='header__search-input'
         onChange={handleSearchTermChange}
         value={searchTerm}
         onClick={() => {

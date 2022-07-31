@@ -47,7 +47,7 @@ const useStyle = makeStyles((theme) => ({
     },
   },
 }));
-function AddToCartForm({ colors, onSubmit = null }) {
+function AddToCartForm({ colors = [], onSubmit = null }) {
   const [active, setActive] = useState(0);
 
   const classes = useStyle();
@@ -62,9 +62,6 @@ function AddToCartForm({ colors, onSubmit = null }) {
     resolver: yupResolver(schema),
   });
 
-  // const handleSubmit = async (values) => {
-  //   console.log('Form submit', values);
-  // };
   const handleSubmit = async (values) => {
     // if (!isLoggedIn) {
     //   return;
@@ -99,7 +96,7 @@ function AddToCartForm({ colors, onSubmit = null }) {
                 className={classNames('product__type-item', { 'product__type-active': color.id === active })}
                 onClick={() => setActive(color.id)}
               >
-                {color.colorName}
+                {color.colorName || ''}
               </li>
             ))}
           </ul>

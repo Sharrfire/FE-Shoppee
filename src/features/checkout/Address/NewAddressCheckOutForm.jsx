@@ -141,6 +141,7 @@ function NewAddressFormCheckOut({ onSubmitNew = null, closeDialog = null }) {
       address: values.address,
       status: checked,
     };
+    console.log(data);
     if (onSubmitNew) {
       await onSubmitNew(data);
     }

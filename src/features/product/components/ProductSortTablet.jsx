@@ -122,7 +122,7 @@ function ProductSortTablet({ currentSort, onChange, onChangePagi }) {
         >
           <Tab label='Phổ biến' value='pop' className={classes.tabTab3} />
           <Tab label='Bán chạy' value='sales' className={classes.tabTab3} />
-          <Tab label='Mới nhất' value='ctimes' className={classes.tabTab3} />
+          <Tab label='Mới nhất' value='ctime' className={classes.tabTab3} />
           <Tab label='Giá' value='asc' className={classes.tabTab3} icon={<ArrowDropUpOutlinedIcon />} />
           <Tab label='Giá' value='desc' className={classes.tabTab31} icon={<ArrowDropDownOutlinedIcon />} />
         </Tabs>

@@ -87,7 +87,7 @@ function Commented({ closeDialog = null, cartItems = [] }) {
                 <div className='comment__main-product-info'>
                   <div className='comment__main-product-name'>{cartItem.newProduct.name}</div>
                   <div className='comment__main-product-type'>
-                    Phân loại hàng: {cartItem.newProduct.colors.colorName}
+                    Phân loại hàng: {cartItem.newProduct.colors.colorName || ''}
                   </div>
                 </div>
               </Link>

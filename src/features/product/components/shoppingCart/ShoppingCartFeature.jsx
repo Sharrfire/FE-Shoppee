@@ -155,9 +155,9 @@ function ShoppingCartFeature(props) {
                         Xoá tất cả
                       </Button>
                     </div>
-                    <div className='shopping__cart-footer-favorite'>
+                    {/* <div className='shopping__cart-footer-favorite'>
                       <span className='shopping__cart-footer-favorite-label'>Lưu vào danh mục Đã thích</span>
-                    </div>
+                    </div> */}
                     <div className='shopping__cart-footer-price'>
                       <div className='shopping__cart-footer-price1'>
                         <span className='shopping__cart-footer-price-label'>Tổng thanh toán:</span>

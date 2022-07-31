@@ -22,11 +22,13 @@ function PurchaseList({ purchaseList, onSubmitComment = null, onClick = null }) 
       await onClick(list);
     }
   };
+  console.log('purchaseList: ', purchaseList);
+
   return (
     <div>
       {purchaseList.map((purchase) => (
         <div key={purchase.id}>
-          <PurchaseItem purchase={purchase} onSubmitComment={handleComment} onClick={handleCancel} />;
+          <PurchaseItem purchase={purchase} key={purchase.id} onSubmitComment={handleComment} onClick={handleCancel} />;
         </div>
       ))}
     </div>

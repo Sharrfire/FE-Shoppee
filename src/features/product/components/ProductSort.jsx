@@ -120,7 +120,7 @@ function ProductSort({ pagination = {}, currentSort, onChange, onChangePagi }) {
           >
             <Tab label='Phổ biến' value='pop' className={classes.tab} />
             <Tab label='Bán chạy' value='sales' className={classes.tab} />
-            <Tab label='Mới nhất' value='ctimes' className={classes.tab} />
+            <Tab label='Mới nhất' value='ctime' className={classes.tab} />
             <Tab label='Giá: Thấp đến cao' value='asc' className={classes.tab} />
             <Tab label='Giá: Cao đến thấp' value='desc' className={classes.tab} />
           </Tabs>

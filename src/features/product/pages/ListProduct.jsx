@@ -64,8 +64,8 @@ function ListProduct(props) {
       _page: Number.parseInt(params._page) || 1,
       _limit: Number.parseInt(params._limit) || 15,
       brand: Number.parseInt(params.brand) || 1,
-      // _sortBy: params._sortBy || 'ctime',
-      _sortBy: params._sortBy || 'ctimes',
+      _sortBy: params._sortBy || 'ctime',
+      // _sortBy: params._sortBy || 'ctimes',
     };
   }, [location.search]);
 
@@ -105,7 +105,6 @@ function ListProduct(props) {
     };
     history({
       pathName: location.pathName,
-      // pathName: history.location.pathName,
       search: queryString.stringify(filters),
     });
   };

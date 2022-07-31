@@ -54,7 +54,7 @@ function ProductCartDetail({ product }) {
             <span className='shopping__cart-product-name'>{newProduct.name}</span>
           </div>
         </div>
-        <div className='shopping__cart-product-type'>Phân loại hàng: {newProduct.colors.colorName}</div>{' '}
+        <div className='shopping__cart-product-type'>Phân loại hàng: {newProduct.colors.colorName || ''}</div>{' '}
         <div className='shopping__cart-product-price'>
           <span className='shopping__cart-product-originalPrice'>
             {new Intl.NumberFormat('vi-VN', {

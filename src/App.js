@@ -33,6 +33,7 @@ function App() {
           <Route path=':productId/*' element={<ProductDetail />}></Route>
         </Route>
         <Route path={`/cart`} element={<ShoppingCartFeature />} />
+        {/* <Route path={`/comment`} element={<Comment />} /> */}
         <Route path={`/checkout`} element={<CheckOutFeature />} />
         <Route path={`/user/*`} element={<UserFeature />}>
           <Route path='' element={<EditInfo />} />

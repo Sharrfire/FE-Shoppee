@@ -9,7 +9,6 @@ import store from './app/store';
 import { SnackbarProvider } from 'notistack';
 // import { Provider } from 'react-redux';
 // import store from './app/store';
-// import { SnackbarProvider } from 'notistack';
 
 ReactDOM.render(
   <Provider store={store}>
