@@ -1,21 +1,20 @@
 import { Box } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import PropTypes from 'prop-types';
-RateSkeletion.propTypes = {
+CategorySkeleton.propTypes = {
   length: PropTypes.number,
 };
 
-function RateSkeletion({ length = 5 }) {
+function CategorySkeleton({ length = 5 }) {
   return (
-    <>
-      {/* <h3>Đánh giá</h3> */}
+    <Box>
       {Array.from(new Array(length)).map((x, index) => (
         <Box mb={1} key={index}>
-          <Skeleton key={index} width='80%' />
+          <Skeleton width='80%' />
         </Box>
       ))}
-    </>
+    </Box>
   );
 }
 
-export default RateSkeletion;
+export default CategorySkeleton;
