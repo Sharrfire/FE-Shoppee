@@ -4,8 +4,10 @@ import queryString from 'query-string';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import productApi from '~/api/productApi';
-import ProductSkeleton from '~/components/skeleton/ProductSkeleton';
 import '~/assets/css/product.css';
+import CategorySkeleton from '~/components/skeleton/CategorySkeleton';
+import ProductSkeleton from '~/components/skeleton/ProductSkeleton';
+import RateSkeletion from '~/components/skeleton/RateSkeletion';
 import ProductFilter from '../components/ProductFilter';
 import ProductList from '../components/ProductList';
 import ProductSort from '../components/ProductSort';
@@ -144,7 +146,15 @@ function ListProduct(props) {
       <div className='grid wide content paddingTop'>
         <div className='row'>
           <div className='col l-2'>
-            <ProductFilter filters={queryParams} onChange={handleFilterChange} />
+            {/* {loading ? <FilterSkeleton /> : <ProductFilter filters={queryParams} onChange={handleFilterChange} />} */}
+            {loading ? (
+              <>
+                <CategorySkeleton />
+                <RateSkeletion />
+              </>
+            ) : (
+              <ProductFilter filters={queryParams} onChange={handleFilterChange} />
+            )}
           </div>
           <div className='col l-10'>
             <ProductSort

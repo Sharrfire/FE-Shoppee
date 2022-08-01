@@ -2,13 +2,15 @@ import { Button, FormControl, FormControlLabel, makeStyles, Radio, RadioGroup } 
 import classNames from 'classnames';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import orderApi from '../../api/orderApi';
 import '../../assets/css/checkout.css';
 import { cartTotalCountSelectors } from '../product/components/shoppingCart/selectors';
 import CheckOutAddress from './CheckOutAddress';
 import CheckOutProductList from './CheckOutProductList';
+import { removeAll } from '../product/components/shoppingCart/CartSlice';
+
 CheckOutFeature.propTypes = {};
 
 const useStyle = makeStyles((theme) => ({
@@ -66,9 +68,10 @@ const useStyle = makeStyles((theme) => ({
 function CheckOutFeature(props) {
   const classes = useStyle();
   const { enqueueSnackbar } = useSnackbar();
-  const cartTotal = useSelector(cartTotalCountSelectors);
-  const totalBill = cartTotal + 20000;
+  const dispatch = useDispatch();
 
+  const cartTotal = useSelector(cartTotalCountSelectors);
+  const totalBill = cartTotal !== 0 ? cartTotal + 20000 : 0;
   const products = useSelector((state) => {
     return state.cart.cartItems;
   });
@@ -110,6 +113,8 @@ function CheckOutFeature(props) {
     console.log('data', data);
     orderApi.add(data);
     enqueueSnackbar('bạn đã đặt mua đơn hàng', { variant: 'success' });
+    const action = removeAll();
+    dispatch(action);
   };
   const [view1, setView1] = useState(true);
   const handleChangeView1 = (state) => {

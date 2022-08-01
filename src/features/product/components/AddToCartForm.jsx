@@ -2,11 +2,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, makeStyles } from '@material-ui/core';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import classNames from 'classnames';
+import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import * as yup from 'yup';
 import QuantityField from '~/components/form-control/QuantityField';
+
 AddToCartForm.propTypes = {
   colors: PropTypes.array,
   onSubmit1: PropTypes.func,
@@ -48,8 +51,11 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 function AddToCartForm({ colors = [], onSubmit = null }) {
-  const [active, setActive] = useState(0);
-
+  const [active, setActive] = useState(1);
+  const { enqueueSnackbar } = useSnackbar();
+  const loggedInUser = useSelector((state) => state.user.current);
+  const isLoggedIn = !!loggedInUser.id;
+  // console.log('isLoggedIn', isLoggedIn);
   const classes = useStyle();
   const schema = yup.object().shape({
     quantity: yup.number().required('Làm ơn nhập').min(1, 'Tối thiểu là 1 sản phẩm').typeError('Làm ơn nhập số'),
@@ -63,24 +69,23 @@ function AddToCartForm({ colors = [], onSubmit = null }) {
   });
 
   const handleSubmit = async (values) => {
-    // if (!isLoggedIn) {
-    //   return;
-    // } else {
+    if (isLoggedIn === false) {
+      enqueueSnackbar('vui lòng đăng nhập', { variant: 'error' });
 
-    const data = {
-      quantity: values.quantity,
-      idc: active,
-    };
-
-    // if (data.idc === 0) {
-    //   return;
-    // } else {
-    if (onSubmit) {
-      await onSubmit(data);
+      return;
+    } else {
+      const data = {
+        quantity: values.quantity,
+        idc: active,
+      };
+      console.log(data);
+      // if (data.idc === 0) {
+      //   return;
+      // } else {
+      if (onSubmit) {
+        await onSubmit(data);
+      }
     }
-    // console.log(data);
-
-    // }
   };
 
   return (

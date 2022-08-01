@@ -47,6 +47,7 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import '~/assets/css/productDetail.css';
+import ProductDetailSkeleton from '~/components/skeleton/ProductDetailSkeleton';
 import useProductDetail from '~/features/hook/useProductDetail';
 import Comment from '../components/comments/Comment';
 import ProductImg from '../components/ProductImg';
@@ -97,37 +98,41 @@ function ProductDetail(props) {
   }, [product]);
   return (
     <div className='app__container'>
-      <div className='grid wide'>
-        <div className='row'>
-          <div className='col l-12'>
-            <Breadcrumbs
-              separator={<NavigateNextIcon fontSize='small' className={classes.icon} />}
-              aria-label='breadcrumb'
-              className={classes.link}
-            >
-              <Link color='inherit' to='/' className={classes.home}>
-                Shopee
-              </Link>
-              <Typography color='textPrimary' className={classes.path}>
-                {product.name}
-              </Typography>
-            </Breadcrumbs>
-          </div>
-        </div>
-        <Paper elevation={0} className={classes.paper}>
-          <div className='row'>
-            <div className='col l-5'>{product.id && <ProductImg product={product} />}</div>
-            <div className='col l-7'>{product.id && <ProductInfo product={product} />}</div>
-          </div>
-        </Paper>
-        <div>
+      {loading ? (
+        <ProductDetailSkeleton />
+      ) : (
+        <div className='grid wide'>
           <div className='row'>
             <div className='col l-12'>
-              <Comment id={productId} />
+              <Breadcrumbs
+                separator={<NavigateNextIcon fontSize='small' className={classes.icon} />}
+                aria-label='breadcrumb'
+                className={classes.link}
+              >
+                <Link color='inherit' to='/' className={classes.home}>
+                  Shopee
+                </Link>
+                <Typography color='textPrimary' className={classes.path}>
+                  {product.name}
+                </Typography>
+              </Breadcrumbs>
+            </div>
+          </div>
+          <Paper elevation={0} className={classes.paper}>
+            <div className='row'>
+              <div className='col l-5'>{product.id && <ProductImg product={product} />}</div>
+              <div className='col l-7'>{product.id && <ProductInfo product={product} />}</div>
+            </div>
+          </Paper>
+          <div>
+            <div className='row'>
+              <div className='col l-12'>
+                <Comment id={productId} />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
