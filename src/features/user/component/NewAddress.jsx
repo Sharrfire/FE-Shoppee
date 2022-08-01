@@ -2,12 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import NewAddressForm from './NewAddressForm';
 import addressApi from '~/api/addressApi';
+import { useSnackbar } from 'notistack';
 NewAddress.propTypes = {
   closeDialog: PropTypes.func,
   onSubmitNew: PropTypes.func,
 };
 
 function NewAddress({ closeDialog = null, onSubmitNew = null }) {
+  const { enqueueSnackbar } = useSnackbar();
+
   const handleNewAddress = async (data) => {
     try {
       const res = await addressApi.add(data);
@@ -18,7 +21,7 @@ function NewAddress({ closeDialog = null, onSubmitNew = null }) {
         closeDialog();
       }
     } catch (error) {
-      console.log('error', error);
+      enqueueSnackbar('Không thể tạo địa chỉ', { variant: 'error' });
     }
   };
 

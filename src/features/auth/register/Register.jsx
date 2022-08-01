@@ -4,6 +4,7 @@ import RegisterForm from './RegisterForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../userSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { useSnackbar } from 'notistack';
 
 Register.propTypes = {
   closeDialog: PropTypes.func,
@@ -11,6 +12,8 @@ Register.propTypes = {
 
 function Register({ closeDialog }) {
   const dispath = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+
   const handleSubmitRegister = async (values) => {
     try {
       const action = register(values);
@@ -23,7 +26,8 @@ function Register({ closeDialog }) {
         closeDialog();
       }
     } catch (error) {
-      console.log('error', error);
+      enqueueSnackbar('Tài khoản đã tồn tại', { variant: 'error' });
+      // console.log('error', error);
     }
   };
   return (

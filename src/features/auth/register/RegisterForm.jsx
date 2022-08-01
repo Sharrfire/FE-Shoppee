@@ -1,13 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, makeStyles, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import InputField from '../../../components/form-control/InputField';
 import PasswordField from '../../../components/form-control/PasswordField';
-import { Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 RegisterForm.propTypes = {
   onSubmitRegister: PropTypes.func,
