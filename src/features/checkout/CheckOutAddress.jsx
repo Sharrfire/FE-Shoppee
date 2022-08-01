@@ -7,7 +7,7 @@ import DeliveryAddressMobileList from './Address/DeliveryAddressMobileList';
 CheckOutAddress.propTypes = {
   addressList: PropTypes.array,
   addressChecked: PropTypes.object,
-  onChange: PropTypes.object,
+  onChange: PropTypes.func,
 };
 
 CheckOutAddress.defaultProps = {

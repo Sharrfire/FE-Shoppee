@@ -65,7 +65,7 @@ function AddressDetail({ address = {} }) {
     setOpen(true);
   };
 
-  const handleClose = (event, reason) => {
+  const handleClose = (reason) => {
     setOpen(false);
     if (reason !== 'backdropClick' && reason !== 'escapeKeyDown') {
       setOpen(false);
@@ -100,7 +100,6 @@ function AddressDetail({ address = {} }) {
           <div className='user__address-label'>Họ và tên</div>
           <div className='user__address-contentDetail'>
             <span className='user__address-contentDetail-text'>{name}</span>
-            {/* <span className='user__address-contentDetail-text'>Đinh Ngọc Thái</span> */}
             {status === true && (
               <>
                 <div className='user__address-contentDetail-default'>Mặc định</div>
@@ -110,14 +109,12 @@ function AddressDetail({ address = {} }) {
         </div>
         <div className='user__address-phone'>
           <div className='user__address-label'>Số điện thoại</div>
-          {/* <div className='user__address-contentDetail'>{phone}</div> */}
-          <div className='user__address-contentDetail'>0704614563</div>
+          <div className='user__address-contentDetail'>{phone}</div>
         </div>
         <div className='user__address-address'>
           <div className='user__address-label'>Địa chỉ</div>
           <div className='user__address-contentDetail'>
             <span>{address.address}</span>
-            {/* <span>Đồng nai</span> */}
           </div>
         </div>
       </div>

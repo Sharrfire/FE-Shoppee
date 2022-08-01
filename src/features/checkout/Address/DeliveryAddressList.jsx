@@ -139,6 +139,7 @@ function DeliveryAddressList({ addressList, addressChecked = {}, onChange = null
       setOpen(false);
     }
   };
+  console.log('addressList: ', addressList);
   // end dialog
   return (
     <div>
@@ -163,6 +164,7 @@ function DeliveryAddressList({ addressList, addressChecked = {}, onChange = null
             {addressList.map((address) => (
               <li key={address.id} className='address__radio-group-item'>
                 <input
+                  key={address.id}
                   type='radio'
                   name='address'
                   id={address.id}
@@ -171,9 +173,11 @@ function DeliveryAddressList({ addressList, addressChecked = {}, onChange = null
                   onClick={() => handleChange(address)}
                   className='address__radio-group-item-input'
                 />
-                <label htmlFor={address.id} className='address__radio-group-item-name'>
+                <label key={address.id} htmlFor={address.id} className='address__radio-group-item-name'>
                   {address.name} {address.phone}
-                  <p className='address__radio-group-item-address'>{address.address}</p>
+                  <p className='address__radio-group-item-address' key={address.id}>
+                    {address.address}
+                  </p>
                 </label>
                 {address.status === true && <div className='address__radio-group-item-default'>Mặc định</div>}
               </li>

@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
 import { useForm } from 'react-hook-form';
@@ -24,7 +23,7 @@ function ProductQuantity({ idp, idc, onChange = null, quantityItem }) {
   });
   return (
     <form>
-      <QuantityCart name='quantity' idp={idp} idc={idc} form={form} />{' '}
+      <QuantityCart onChange={handleOnChange} name='quantity' idp={idp} idc={idc} form={form} />{' '}
     </form>
   );
 }

@@ -5,21 +5,20 @@ import { useNavigate } from 'react-router-dom';
 // MUI
 import { Dialog, DialogContent, IconButton, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
-import InstagramIcon from '@material-ui/icons/Instagram';
-import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import CloseIcon from '@material-ui/icons/Close';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
 import HomeIcon from '@material-ui/icons/Home';
+import InstagramIcon from '@material-ui/icons/Instagram';
 import MenuIcon from '@material-ui/icons/Menu';
+import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
 import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 // Local File
-import { cartItemsCountSelectors } from '~/features/product/components/shoppingCart/selectors';
 import addressApi from '~/api/addressApi';
 import '~/assets/css/main.css';
 import '~/assets/css/reponsive.css';
@@ -29,11 +28,12 @@ import no_cart from '~/assets/images/no_cart.png';
 import qrCode from '~/assets/images/qrcode.png';
 import Login from '~/features/auth/login/Login';
 import Register from '~/features/auth/register/Register';
+import { logout } from '~/features/auth/userSlice';
 import { removeAll } from '~/features/product/components/shoppingCart/CartSlice';
+import { cartItemsCountSelectors } from '~/features/product/components/shoppingCart/selectors';
 import { removeAllAddress } from '~/features/user/component/AddressSlice';
 import Cart from '../cart/Cart';
 import Search from '../search/Search';
-import { logout } from '~/features/auth/userSlice';
 Header.propTypes = {};
 const MODE = {
   LOGIN: 'login',

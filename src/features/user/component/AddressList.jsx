@@ -1,5 +1,7 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import AddressDetail from './AddressDetail';
+import addressApi from '../../../api/addressApi';
 
 AddressList.propTypes = {
   addressList: PropTypes.array,

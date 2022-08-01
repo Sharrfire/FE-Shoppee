@@ -70,7 +70,7 @@ function EditInfo(props) {
         <form onSubmit={form.handleSubmit(handleSubmitEditInfo)}>
           <div className='user__info-item'>
             <div className='user__info-label'>
-              <label>Tên tài khoản</label>
+              <label>Tên tài khoảng</label>
             </div>
             <div className='user__info-username'>
               <p>{fullname}</p>

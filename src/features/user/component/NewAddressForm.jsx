@@ -6,8 +6,8 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 NewAddressForm.propTypes = {
-  onSubmitNew: PropTypes.func,
   closeDialog: PropTypes.func,
+  onSubmit1: PropTypes.func,
 };
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -93,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-function NewAddressForm({ onSubmitNew = null, closeDialog = null }) {
+function NewAddressForm({ closeDialog = null, onSubmit1 }) {
   const classes = useStyles();
   const schema = yup.object().shape({
     name: yup
@@ -139,11 +139,11 @@ function NewAddressForm({ onSubmitNew = null, closeDialog = null }) {
       phone: values.phone,
       address: values.address,
       status: checked,
+      // id: 1,
     };
-    console.log(data);
-
-    if (onSubmitNew) {
-      await onSubmitNew(data);
+    console.log('data at address form', data);
+    if (onSubmit1) {
+      await onSubmit1(data);
     }
   };
 
