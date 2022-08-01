@@ -6,7 +6,7 @@ import DeliveryAddressList from './Address/DeliveryAddressList';
 import DeliveryAddressMobileList from './Address/DeliveryAddressMobileList';
 CheckOutAddress.propTypes = {
   addressList: PropTypes.array,
-  addressChecked: PropTypes.object,
+  addressChecked: PropTypes.any,
   onChange: PropTypes.func,
 };
 
@@ -16,7 +16,7 @@ CheckOutAddress.defaultProps = {
 
 function CheckOutAddress({ onChange = null, addressList, addressChecked = {} }) {
   const [view, setView] = useState(true);
-  console.log('addressChecked', addressChecked);
+  // console.log('addressChecked', addressChecked);
   const handleChangeView = (state) => {
     setView(state);
   };

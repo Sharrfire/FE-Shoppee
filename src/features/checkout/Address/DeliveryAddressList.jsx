@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import NewAddressCheckOut from './NewAddressCheckOut';
 DeliveryAddressList.propTypes = {
   addressList: PropTypes.array,
-  addressChecked: PropTypes.object,
+  addressChecked: PropTypes.any,
   onChange: PropTypes.func,
   onClickChange: PropTypes.func,
   onSubmitNew: PropTypes.func,
@@ -164,16 +164,15 @@ function DeliveryAddressList({ addressList, addressChecked = {}, onChange = null
             {addressList.map((address) => (
               <li key={address.id} className='address__radio-group-item'>
                 <input
-                  key={address.id}
                   type='radio'
                   name='address'
                   id={address.id}
                   value={address.id}
-                  checked
+                  defaultChecked
                   onClick={() => handleChange(address)}
                   className='address__radio-group-item-input'
                 />
-                <label key={address.id} htmlFor={address.id} className='address__radio-group-item-name'>
+                <label htmlFor={address.id} className='address__radio-group-item-name'>
                   {address.name} {address.phone}
                   <p className='address__radio-group-item-address' key={address.id}>
                     {address.address}

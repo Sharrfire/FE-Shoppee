@@ -5,7 +5,7 @@ import RoomIcon from '@material-ui/icons/Room';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 DeliveryAddress.propTypes = {
   onClick: PropTypes.func,
-  address: PropTypes.object,
+  address: PropTypes.any,
 };
 const useStyle = makeStyles((theme) => ({
   btn: {

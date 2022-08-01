@@ -133,7 +133,7 @@ function CheckOutFeature(props) {
               {addressList.length > 0 && (
                 <CheckOutAddress
                   addressList={addressList}
-                  addressChecked={addressChecked || 'Đồng Nai'}
+                  addressChecked={addressChecked}
                   onChange={handleChangeAddress}
                   view1={view1}
                   onClickChange1={handleChangeView1}

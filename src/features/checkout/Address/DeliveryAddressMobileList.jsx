@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import NewAddressCheckOut from './NewAddressCheckOut';
 DeliveryAddressMobileList.propTypes = {
   addressList: PropTypes.array,
-  addressChecked: PropTypes.object,
+  addressChecked: PropTypes.any,
   onChange: PropTypes.func,
   onClickChange: PropTypes.func,
   onSubmitNew: PropTypes.func,

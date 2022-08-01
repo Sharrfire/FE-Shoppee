@@ -14,9 +14,11 @@ function NewAddress({ closeDialog = null }) {
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   let listAddress = JSON.parse(localStorage.getItem('address'));
+  console.log('typeof:', typeof listAddress);
   const loggedInUser = useSelector((state) => state.user.current);
   console.log('loggedInUserId', loggedInUser.id);
   const handleNewAddress1 = async (data) => {
+    let idAddress = 1;
     console.log('data at new address ', data);
     if (listAddress === null) {
       const action = addAddress({
@@ -24,7 +26,7 @@ function NewAddress({ closeDialog = null }) {
         address: data.address,
         phone: data.phone,
         status: data.status,
-        id: 1,
+        id: idAddress,
         user: loggedInUser.id,
       });
       dispatch(action);
@@ -38,7 +40,8 @@ function NewAddress({ closeDialog = null }) {
         address: data.address,
         phone: data.phone,
         status: data.status,
-        id: listAddress.pop().id + 1 || 2,
+        id: idAddress++,
+        // id: listAddress.pop().id + 1,
         user: loggedInUser.id,
       });
       dispatch(action);

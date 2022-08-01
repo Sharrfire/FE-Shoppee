@@ -1,10 +1,11 @@
-import { Button, Dialog, DialogContent, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
-import { useSnackbar } from 'notistack';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { removeAddress, setStatusAddress } from './AddressSlice';
+import { Button, Dialog, DialogContent, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import EditAddress from './EditAddress';
+import addressApi from '../../../api/addressApi';
+import { setStateAddress, setStatusAddress, removeAddress } from './AddressSlice';
+import { useDispatch } from 'react-redux';
+import { useSnackbar } from 'notistack';
 AddressDetail.propTypes = {
   address: PropTypes.object,
 };

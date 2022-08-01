@@ -95,6 +95,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 function NewAddressForm({ closeDialog = null, onSubmit1 }) {
   const classes = useStyles();
+
   const schema = yup.object().shape({
     name: yup
       .string()
@@ -139,7 +140,6 @@ function NewAddressForm({ closeDialog = null, onSubmit1 }) {
       phone: values.phone,
       address: values.address,
       status: checked,
-      // id: 1,
     };
     console.log('data at address form', data);
     if (onSubmit1) {

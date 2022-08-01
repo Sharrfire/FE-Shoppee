@@ -15,7 +15,7 @@ function AddressList({ addressList }) {
   return (
     <div>
       {addressList.map((address) => (
-        <div key={address.id}>{address.id && <AddressDetail address={address} />}</div>
+        <div key={address.id}>{address.id && <AddressDetail key={address.id} address={address} />}</div>
       ))}
     </div>
   );
