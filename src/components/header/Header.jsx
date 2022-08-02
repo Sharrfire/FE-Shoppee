@@ -107,7 +107,6 @@ function Header(props) {
   };
   console.log('checkAdmin', isAdmin(isLoggedIn) === 2);
   // console.log('loggedInUser.role.id', typeof loggedInUser.role.id);
-
   // console.log('isAdminInUserAtHeader', isAdmin);
   //logOut
   const dispatch = useDispatch();
@@ -170,7 +169,6 @@ function Header(props) {
     setOpenLogIn(false);
   };
   const handleCloseSignUp = (event, reason) => {
-    setOpenSignUp(false);
     if (reason !== 'backdropClick' && reason !== 'escapeKeyDown') {
       setOpenSignUp(false);
     }
@@ -184,7 +182,6 @@ function Header(props) {
   };
 
   const handleCloseLogIn = (event, reason) => {
-    setOpenLogIn(false);
     if (reason !== 'backdropClick' && reason !== 'escapeKeyDown') {
       setOpenLogIn(false);
     }

@@ -1,20 +1,50 @@
-import { Button } from '@material-ui/core';
+import { Button, Dialog, DialogContent, IconButton, makeStyles } from '@material-ui/core';
+import { Close } from '@material-ui/icons';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import Rating from '@material-ui/lab/Rating';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
-
+import { useState } from 'react';
+import AddForm from './add/AddForm';
+import EditForm from './edit/EditForm';
 Product.propTypes = {
   product: PropTypes.object,
 };
-
+const useStyle = makeStyles((theme) => ({
+  label: {
+    marginTop: '20px',
+  },
+  btn: {
+    '&.MuiButton-root': {
+      borderRadius: '2px',
+      backgroundColor: 'rgb(54, 223, 76)',
+      color: '#fff',
+      fontSize: '12px',
+    },
+  },
+  closeButton: {
+    position: 'absolute',
+    top: theme.spacing(1),
+    right: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
+}));
 function Product({ product }) {
   const { name, price, quantitySold, rate, sale, salePrice, images } = product;
   const img = images[0].path;
+  const [open, setOpen] = useState(false);
+  const classes = useStyle();
   // // const history = useNavigate();
-  const handleClickEdit = () => {
-    // history(`/products/${product.id}`);
-    console.log('Edit product', product);
+  // const handleClickEdit = () => {
+  //   // history(`/products/${product.id}`);
+  //   console.log('Edit product', product);
+  // };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = (event, reason) => {
+    if (reason !== 'backdropClick' && reason !== 'escapeKeyDown') {
+      setOpen(false);
+    }
   };
   const handleClickDelete = () => {
     // history(`/products/${product.id}`);
@@ -96,7 +126,7 @@ function Product({ product }) {
           <div className='product__item-address'>Hồ Chí Minh</div>
           <div className='product__item-action'>
             <Button
-              onClick={handleClickEdit}
+              onClick={handleClickOpen}
               variant='contained'
               color='primary'
               style={{
@@ -118,6 +148,17 @@ function Product({ product }) {
           </div>
         </div>
       </div>
+      <Dialog open={open} onClose={handleClose} aria-labelledby='form-dialog-title'>
+        <IconButton onClick={handleClose} className={classes.closeButton}>
+          <Close />
+        </IconButton>
+        <DialogContent>
+          {/* <DialogContentText>
+            To subscribe to this website, please enter your email address here. We will send updates occasionally.
+          </DialogContentText> */}
+          <EditForm product={product} />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

@@ -103,7 +103,7 @@ function CheckOutFeature(props) {
     const data = {
       fullname: fullname,
       email: email,
-      address: address,
+      address: address || 'Đồng Nai',
       phone: loggedInUser.phone,
       cartItems: products,
       cartTotal: cartTotal,
@@ -120,6 +120,7 @@ function CheckOutFeature(props) {
   const handleChangeView1 = (state) => {
     setView1(state);
   };
+
   const isLoggedIn = !!loggedInUser.id;
   if (!isLoggedIn) {
     return <Navigate to='/' />;

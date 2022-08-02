@@ -3,6 +3,7 @@ import ListIcon from '@material-ui/icons/List';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import brandApi from '../../../api/brandApi';
+import AddFeature from './AddFeature';
 import BrandFilter from './filter/BrandFilter';
 import PriceFilter from './filter/PriceFilter';
 import RateFilter from './filter/RateFilter';
@@ -81,6 +82,7 @@ function ProductFilter({ filters, onChange = null }) {
 
     onChange(newFilters);
   };
+
   return (
     <nav className='category'>
       <h3 className='category__heading' style={{ display: 'flex' }}>
@@ -90,6 +92,7 @@ function ProductFilter({ filters, onChange = null }) {
       <BrandFilter onChange={handleBrandChange} brandList={brandList} active={active} />
       <RateFilter onChange={handleRateChange} />
       <PriceFilter onChange={handlePriceChange} />
+      <AddFeature />
     </nav>
   );
 }

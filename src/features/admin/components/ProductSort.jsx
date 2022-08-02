@@ -1,4 +1,4 @@
-import { ButtonBase, createTheme, makeStyles, Tab, Tabs, ThemeProvider } from '@material-ui/core';
+import { Button, ButtonBase, createTheme, makeStyles, Tab, Tabs, ThemeProvider } from '@material-ui/core';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import PropTypes from 'prop-types';
@@ -92,6 +92,10 @@ const theme = createTheme({
 });
 function ProductSort({ pagination = {}, currentSort, onChange, onChangePagi }) {
   const classes = useStyle();
+  const handleClickEdit = () => {
+    // history(`/products/${product.id}`);
+    console.log('New product');
+  };
   //sort
   const handleSortChange = (event, newValue) => {
     if (onChange) onChange(newValue);
