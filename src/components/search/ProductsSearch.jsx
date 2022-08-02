@@ -17,11 +17,12 @@ function ProductsSearch({ products = [] }) {
       </ul>
       <h3 className='header__search-history-title'>Lịch sử tìm kiếm</h3>
       <ul className='header__search-history-list'>
-        {products.map((product) => (
-          <li key={product.id} className='header__search-product-item'>
-            <a href={product.id}>{product.name}</a>
-          </li>
-        ))}
+        <li className='header__search-history-item'>
+          <a href='/'>Dầu gội đầu</a>
+        </li>
+        <li className='header__search-history-item'>
+          <a href='/'>Dầu gội đầu</a>
+        </li>
       </ul>
     </div>
   );

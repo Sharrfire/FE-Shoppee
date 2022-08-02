@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Button, makeStyles } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
 import CheckIcon from '@material-ui/icons/Check';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SearchIcon from '@material-ui/icons/Search';
 import classNames from 'classnames';
-import productApi from '../../api/productApi';
 import queryString from 'query-string';
+import { useEffect, useState } from 'react';
+import productApi from '../../api/productApi';
 import InputForm from './InputForm';
 import ProductsSearch from './ProductsSearch';
 Search.propTypes = {};
@@ -47,11 +46,6 @@ function Search(props) {
   const classes = useStyles();
   const [productList, setProductList] = useState([]);
   const [viewProducts, setViewProduct] = useState(false);
-  // const [pagination, setPagination] = useState({
-  //   limit: 5,
-  //   total: 5,
-  //   page: 1,
-  // });
 
   const [filters, setFilters] = useState({
     _limit: 5,

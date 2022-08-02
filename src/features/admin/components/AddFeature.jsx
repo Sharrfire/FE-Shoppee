@@ -30,11 +30,6 @@ function AddFeature({ props }) {
   const classes = useStyle();
   const [open, setOpen] = useState(false);
 
-  const handleSubmit = () => {
-    // if (onChange) onChange(values);
-    // setValues({ priceMin: 0, priceMax: 0 });
-    console.log('Form add product');
-  };
   const handleClickOpen = () => {
     setOpen(true);
   };

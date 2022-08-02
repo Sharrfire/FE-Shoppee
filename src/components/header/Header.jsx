@@ -186,29 +186,7 @@ function Header(props) {
       setOpenLogIn(false);
     }
   };
-  //form quên mật khẩu
-  const [openForgotPass, setOpenForgotPass] = useState(false);
 
-  const handleClickOpenForgotPass = () => {
-    setOpenForgotPass(true);
-    setOpenLogIn(false);
-  };
-
-  const handleCloseForgotPass = () => {
-    setOpenForgotPass(false);
-  };
-  // from đổi mật khẩu
-  const [openChangePass, setOpenChangePass] = useState(false);
-
-  const handleClickOpenChangePass = () => {
-    setOpenChangePass(true);
-    setOpenForgotPass(false);
-  };
-
-  const handleCloseChangePass = () => {
-    setOpenChangePass(false);
-    setOpenLogIn(true);
-  };
   return (
     <div className='header'>
       <div className='grid wide'>
@@ -460,7 +438,7 @@ function Header(props) {
         <DialogContent>
           <Login
             closeDialog={handleCloseLogIn}
-            openForgot={handleClickOpenForgotPass}
+            // openForgot={handleClickOpenForgotPass}
             openRegister={handleClickOpenSignUp}
           />
         </DialogContent>

@@ -1,10 +1,7 @@
 import { Button, Dialog, DialogContent, IconButton, makeStyles } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import Rating from '@material-ui/lab/Rating';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import AddForm from './add/AddForm';
 import EditForm from './edit/EditForm';
 Product.propTypes = {
   product: PropTypes.object,
@@ -29,7 +26,7 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 function Product({ product }) {
-  const { name, price, quantitySold, rate, sale, salePrice, images } = product;
+  const { name, price, sale, salePrice, images } = product;
   const img = images[0].path;
   const [open, setOpen] = useState(false);
   const classes = useStyle();
@@ -113,7 +110,7 @@ function Product({ product }) {
             </div>
           </div>
           {/* review */}
-          <div className='product__item-reviews'>
+          {/* <div className='product__item-reviews'>
             <div className='product__item-like'>
               <FavoriteBorderIcon />
             </div>
@@ -121,9 +118,9 @@ function Product({ product }) {
               <Rating name='half-rating-read' value={rate} precision={0.1} readOnly />{' '}
             </div>
             <div className='product__item-saled'>Đã bán {quantitySold}</div>{' '}
-          </div>
+          </div> */}
           {/* adress */}
-          <div className='product__item-address'>Hồ Chí Minh</div>
+          {/* <div className='product__item-address'>Hồ Chí Minh</div> */}
           <div className='product__item-action'>
             <Button
               onClick={handleClickOpen}

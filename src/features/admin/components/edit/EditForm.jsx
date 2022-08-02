@@ -29,8 +29,7 @@ function EditForm({ product = {} }) {
     productname: yup.string().required('please enter product name'),
     price: yup.number().required('please enter price'),
     productimg: yup.string().required('please enter product image'),
-    productsubimg: yup.array().required('please enter product sub image'),
-
+    // productsubimg: yup.array().required('please enter product sub image'),
     color: yup.string().required('please enter product color'),
   });
 
@@ -39,7 +38,7 @@ function EditForm({ product = {} }) {
       productname: product.name,
       price: product.price.toString(),
       productimg: product.images[0].path,
-      color: [' Xanh', ' Đỏ'],
+      color: ' Xanh, Đỏ',
     },
     resolver: yupResolver(schema),
   });

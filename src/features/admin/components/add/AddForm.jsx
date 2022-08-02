@@ -29,7 +29,7 @@ function AddForm({ onSubmitAdd = null }) {
     productname: yup.string().required('please enter product name'),
     price: yup.number().required('please enter price'),
     productimg: yup.string().required('please enter product image'),
-    productsubimg: yup.string().required('please enter product sub image'),
+    // productsubimg: yup.string().required('please enter product sub image'),
     color: yup.string().required('please enter product color'),
   });
 
@@ -38,7 +38,7 @@ function AddForm({ onSubmitAdd = null }) {
       productname: '',
       price: '',
       productimg: '',
-      productsubimg: '',
+      // productsubimg: '',
       color: '',
     },
     resolver: yupResolver(schema),
@@ -59,7 +59,7 @@ function AddForm({ onSubmitAdd = null }) {
         <InputField form={form} label='Product Name' name='productname' />
         <InputField form={form} label='Price' name='price' />
         <InputField form={form} label='Product image' name='productimg' />
-        <InputField form={form} label='Product sub image' name='productsubimg' />
+        {/* <InputField form={form} label='Product sub image' name='productsubimg' /> */}
         <InputField form={form} label='Color' name='color' />
         <Button type='submit' className={classes.submit} variant='contained' color='primary' fullWidth>
           Add product
