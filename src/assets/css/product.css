@@ -461,7 +461,14 @@
     text-align: right;
     font-weight: 400;
 }
-        /* end infomation */
+
+.product__item-action{
+display: flex;
+justify-content: space-between;
+margin-top: 20px;
+}
+
+   /* end infomation */
 /* end product-list */
 
 /* product pagination */

@@ -104,7 +104,7 @@ function ComentList({ closeDialog = null, cartItems, ido, onSubmitComment = null
           <div className='comment__main-list'>
             {/* xét  id product id type */}
             {cartItems.map((cartItem, index) => (
-              <Comment form={form} index={index} cartItem={cartItem} />
+              <Comment key={index} form={form} index={index} cartItem={cartItem} />
             ))}
           </div>
         </div>

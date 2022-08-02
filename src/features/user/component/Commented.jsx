@@ -78,8 +78,8 @@ function Commented({ closeDialog = null, cartItems = [] }) {
       </div>
       <div className='comment__main'>
         <div className='comment__main-list'>
-          {cartItems.map((cartItem) => (
-            <div className='comment__main-item'>
+          {cartItems.map((cartItem, index) => (
+            <div className='comment__main-item' key={index}>
               <Link underline='none' className={classes.link}>
                 <div className='comment__main-product-imgs'>
                   <img src={cartItem.newProduct.images[0].path} className='comment__main-product-img' alt='' />
@@ -98,11 +98,11 @@ function Commented({ closeDialog = null, cartItems = [] }) {
                     <div className='comment__main-commented-avatar'>
                       <div className='comment__main-commented-placeholder'>
                         <svg
-                          enable-background='new 0 0 15 15'
+                          enableBackground='new 0 0 15 15'
                           viewBox='0 0 15 15'
                           x='0'
                           y='0'
-                          class='shopee-svg-icon icon-headshot'
+                          className='shopee-svg-icon icon-headshot'
                         >
                           <g>
                             <circle cx='7.5' cy='4.5' fill='none' r='3.8' strokeMiterlimit='10'></circle>

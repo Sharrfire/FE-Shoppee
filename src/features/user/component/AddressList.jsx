@@ -14,8 +14,8 @@ AddressList.defaultProps = {
 function AddressList({ addressList }) {
   return (
     <div>
-      {addressList.map((address) => (
-        <div key={address.id}>{address.id && <AddressDetail key={address.id} address={address} />}</div>
+      {addressList.map((address, index) => (
+        <div key={index}>{address.id && <AddressDetail key={address.id} address={address} />}</div>
       ))}
     </div>
   );

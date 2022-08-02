@@ -98,7 +98,17 @@ function Header(props) {
   //check isLogin
   const loggedInUser = useSelector((state) => state.user.current);
   const isLoggedIn = !!loggedInUser.id;
+  const isAdmin = (isLoggedIn) => {
+    if (isLoggedIn) {
+      return loggedInUser.role.id;
+    } else {
+      return 0;
+    }
+  };
+  console.log('checkAdmin', isAdmin(isLoggedIn) === 2);
+  // console.log('loggedInUser.role.id', typeof loggedInUser.role.id);
 
+  // console.log('isAdminInUserAtHeader', isAdmin);
   //logOut
   const dispatch = useDispatch();
   const products = useSelector((state) => {
@@ -137,6 +147,9 @@ function Header(props) {
 
   const handleClickCart = () => {
     history('/cart');
+  };
+  const handleClickProductMangager = () => {
+    history('/admin');
   };
   const handleClickPurchase = () => {
     history('/user/purchase');
@@ -295,6 +308,12 @@ function Header(props) {
                   <li className='header__navbar-user-item' onClick={handleClickPurchase}>
                     <p>Đơn mua</p>
                   </li>
+                  {isAdmin(isLoggedIn) === 2 && (
+                    <li className='header__navbar-user-item' onClick={handleClickProductMangager}>
+                      <p>Quản lí sản phẩm</p>
+                    </li>
+                  )}
+
                   <li className='header__navbar-user-item' onClick={handleLogout}>
                     <p>Đăng xuất</p>
                   </li>

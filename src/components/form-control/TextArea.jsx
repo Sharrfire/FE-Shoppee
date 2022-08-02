@@ -39,7 +39,9 @@ function TextArea(props) {
       fullWidth
       multiline
       rows={5}
-      rowsMax={10}
+      maxRows={10}
+      // rowsMax={10}
+
       label={label}
       disabled={disabled}
       error={!!hasError}

@@ -5,6 +5,8 @@ import './assets/css/grid.css';
 import './assets/css/reset.css';
 import Header from './components/header/Header';
 import ProductFeature from './features';
+import AdminFeature from './features/admin/AdminFeature';
+import AdminListProduct from './features/admin/pages/AdminListProduct';
 import CheckOutFeature from './features/checkout/CheckOutFeature';
 import ShoppingCartFeature from './features/product/components/shoppingCart/ShoppingCartFeature';
 import ListProduct from './features/product/pages/ListProduct';
@@ -39,6 +41,10 @@ function App() {
           <Route path='' element={<EditInfo />} />
           <Route path='address' element={<Address />} />
           <Route path='purchase' element={<Purchase />} />
+        </Route>
+        {/* Admin */}
+        <Route path='admin/*' element={<AdminFeature />}>
+          <Route path='' element={<AdminListProduct />} />
         </Route>
       </Routes>
     </div>

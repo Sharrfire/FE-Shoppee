@@ -103,7 +103,7 @@ function CheckOutFeature(props) {
     const data = {
       fullname: fullname,
       email: email,
-      address: address || 'Đồng Nai',
+      address: address,
       phone: loggedInUser.phone,
       cartItems: products,
       cartTotal: cartTotal,

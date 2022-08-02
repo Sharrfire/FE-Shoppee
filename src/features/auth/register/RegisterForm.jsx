@@ -37,10 +37,11 @@ function RegisterForm({ onSubmitRegister = null }) {
     password: yup
       .string()
       .required('please enter your password')
-      .matches
-      // '(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}',
-      // 'Password must contain at least 8 characters, including upper case letters, lower case letters, numbers and a special character',
-      (),
+      // .length(6, 'password is not strong enought')
+      .min(5, 'Must be more than 5 letter')
+      .matches(),
+    // '(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}',
+    // 'Password must contain at least 8 characters, including upper case letters, lower case letters, numbers and a special character',
     repassword: yup
       .string()
       .required('please retype your password')
